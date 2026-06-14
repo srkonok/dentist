@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import LogoSvg from "@/components/ui/LogoSvg";
+import Image from "next/image";
 import { DOCTOR, CHAMBERS } from "@/lib/constants";
 
 export default function Footer() {
@@ -21,9 +21,15 @@ export default function Footer() {
 
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <LogoSvg size={32} />
-              <span className="font-bold text-white text-sm">{DOCTOR.name}</span>
+            <div className="flex items-center gap-3 mb-4">
+              <Image
+                src="/images/hd-popular-logo.webp"
+                alt="HD Popular Dental Care logo"
+                width={48}
+                height={48}
+                className="rounded-full bg-white p-0.5"
+              />
+              <span className="font-bold text-white text-sm leading-tight">{DOCTOR.name}</span>
             </div>
             <p className="text-sm text-neutral-400 leading-relaxed mb-3">
               {t("tagline")}

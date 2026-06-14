@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import LogoSvg from "@/components/ui/LogoSvg";
+import Image from "next/image";
 import { DOCTOR } from "@/lib/constants";
 
 const navLinks = [
@@ -23,6 +23,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const isHome = pathname === "/";
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -37,13 +39,13 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm"
-          : "bg-transparent"
+        isHome && !scrolled
+          ? "bg-transparent"
+          : "bg-white/96 backdrop-blur-xl border-b border-neutral-100 shadow-sm"
       }`}
     >
       <nav
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between"
         aria-label="Main navigation"
       >
         {/* Logo + Brand */}
@@ -52,30 +54,43 @@ export default function Navbar() {
           className="flex items-center gap-2.5 group shrink-0"
           aria-label="Dr. Atoshe Islam — Home"
         >
-          <LogoSvg size={36} />
+          <Image
+              src="/images/hd-popular-logo.webp"
+              alt="HD Popular Dental Care logo"
+              width={44}
+              height={44}
+              className="rounded-full"
+              priority
+            />
           <div className="leading-tight">
-            <p className="text-sm font-bold text-brand-700 group-hover:text-brand-600 transition-colors">
+            <p className={`text-sm font-bold transition-colors ${isHome && !scrolled ? "text-white group-hover:text-white/80" : "text-brand-700 group-hover:text-brand-600"}`}>
               {DOCTOR.name}
             </p>
-            <p className="text-[10px] text-neutral-500 hidden sm:block">
+            <p className={`text-[10px] hidden sm:block ${isHome && !scrolled ? "text-white/70" : "text-neutral-500"}`}>
               BDS · BMDC {DOCTOR.bmdcReg}
             </p>
           </div>
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden lg:flex items-center gap-1" role="list">
+        <ul className="hidden lg:flex items-center gap-0.5" role="list">
           {navLinks.map(({ key, href }) => (
             <li key={key}>
               <Link
                 href={href}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`relative px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                   pathname === href
-                    ? "text-brand-600 bg-brand-50"
-                    : "text-neutral-700 hover:text-brand-600 hover:bg-brand-50"
+                    ? isHome && !scrolled ? "text-white bg-white/20" : "text-brand-700 bg-brand-50"
+                    : isHome && !scrolled ? "text-white/85 hover:text-white hover:bg-white/12" : "text-neutral-600 hover:text-brand-700 hover:bg-brand-50/60"
                 }`}
               >
                 {t(key)}
+                {pathname === href && (
+                  <span
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full"
+                    style={{ background: isHome && !scrolled ? "rgba(255,255,255,0.7)" : "#0d9488" }}
+                  />
+                )}
               </Link>
             </li>
           ))}
@@ -86,7 +101,11 @@ export default function Navbar() {
           {/* Language switcher */}
           <button
             onClick={toggleLocale}
-            className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full border border-brand-200 text-xs font-semibold text-brand-700 hover:bg-brand-50 transition-colors"
+            className={`hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full border text-xs font-semibold transition-colors ${
+              isHome && !scrolled
+                ? "border-white/40 text-white hover:bg-white/15"
+                : "border-brand-200 text-brand-700 hover:bg-brand-50"
+            }`}
             aria-label="Switch language"
           >
             <GlobeIcon />
@@ -96,7 +115,12 @@ export default function Navbar() {
           {/* CTA */}
           <Link
             href="/appointment"
-            className="hidden sm:inline-flex items-center px-4 py-2 rounded-full bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700 transition-colors shadow-sm"
+            className="hidden sm:inline-flex items-center px-5 py-2.5 rounded-full text-white text-sm font-bold transition-all duration-150 hover:-translate-y-0.5"
+            style={
+              isHome && !scrolled
+                ? { background: "rgba(255,255,255,0.18)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.28)" }
+                : { background: "linear-gradient(135deg, #0d9488, #0369a1)", boxShadow: "0 2px 12px rgba(14,148,136,0.35)" }
+            }
           >
             {t("appointment")}
           </Link>
@@ -104,7 +128,7 @@ export default function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden p-2 rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors"
+            className={`lg:hidden p-2 rounded-lg transition-colors ${isHome && !scrolled ? "text-white hover:bg-white/15" : "text-neutral-700 hover:bg-neutral-100"}`}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
           >
@@ -113,42 +137,47 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="lg:hidden bg-white border-t border-neutral-100 shadow-lg">
-          <div className="px-4 py-4 space-y-1">
-            {navLinks.map(({ key, href }) => (
-              <Link
-                key={key}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                  pathname === href
-                    ? "text-brand-600 bg-brand-50"
-                    : "text-neutral-700 hover:text-brand-600 hover:bg-brand-50"
-                }`}
-              >
-                {t(key)}
-              </Link>
-            ))}
-            <div className="pt-2 flex gap-2">
-              <button
-                onClick={() => { toggleLocale(); setMenuOpen(false); }}
-                className="flex-1 py-2.5 rounded-xl border border-brand-200 text-sm font-semibold text-brand-700 hover:bg-brand-50 transition-colors"
-              >
-                {t("switchLang")}
-              </button>
-              <Link
-                href="/appointment"
-                onClick={() => setMenuOpen(false)}
-                className="flex-1 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-semibold text-center hover:bg-brand-700 transition-colors"
-              >
-                {t("appointment")}
-              </Link>
-            </div>
+      {/* Mobile menu — animated slide */}
+      <div
+        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          menuOpen ? "max-h-[480px] opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+        }`}
+        style={{ background: "rgba(255,255,255,0.98)", backdropFilter: "blur(20px)" }}
+      >
+        <div className="border-t border-neutral-100 px-4 py-4 space-y-1">
+          {navLinks.map(({ key, href }) => (
+            <Link
+              key={key}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className={`flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-medium transition-colors ${
+                pathname === href
+                  ? "text-brand-700 bg-brand-50 font-semibold"
+                  : "text-neutral-700 hover:text-brand-700 hover:bg-neutral-50"
+              }`}
+            >
+              {t(key)}
+              {pathname === href && <span className="w-2 h-2 rounded-full bg-brand-500" />}
+            </Link>
+          ))}
+          <div className="pt-2 pb-1 flex gap-2.5">
+            <button
+              onClick={() => { toggleLocale(); setMenuOpen(false); }}
+              className="flex-1 py-3 rounded-xl border border-brand-200 text-sm font-semibold text-brand-700 hover:bg-brand-50 transition-colors"
+            >
+              {t("switchLang")}
+            </button>
+            <Link
+              href="/appointment"
+              onClick={() => setMenuOpen(false)}
+              className="flex-1 py-3 rounded-xl text-white text-sm font-bold text-center"
+              style={{ background: "linear-gradient(135deg, #0d9488, #0369a1)", boxShadow: "0 2px 12px rgba(14,148,136,0.3)" }}
+            >
+              {t("appointment")}
+            </Link>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
