@@ -81,6 +81,7 @@ export default function ContactPage() {
                       <div className="flex-1">
                         <p className="font-semibold text-neutral-900">{t(nameKey as "chamber1" | "chamber2")}</p>
                         <p className="text-neutral-500 text-sm mt-0.5">{t(addrKey as "chamber1Address" | "chamber2Address")}</p>
+                        <p className="text-brand-600 text-xs font-medium mt-1">{chamber.hours}</p>
                         {"mapsUrl" in chamber && chamber.mapsUrl && (
                           <a
                             href={chamber.mapsUrl as string}

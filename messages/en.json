@@ -111,7 +111,7 @@
   },
   "appointment": {
     "pageTitle": "Schedule an Appointment",
-    "pageSubtitle": "Consultations available daily from 10:00 AM to 3:00 PM",
+    "pageSubtitle": "Mirpur: 10:00 AM – 3:00 PM · HD Popular: 5:00 PM – 10:00 PM · Closed Fridays",
     "title": "Request an Appointment",
     "subtitle": "Complete the form below and our team will confirm a convenient appointment time",
     "name": "Full Name",
@@ -134,7 +134,7 @@
     "submit": "Submit Appointment Request",
     "success": "Thank you — your appointment request has been received. A member of our team will contact you shortly to confirm your visit.",
     "error": "We were unable to process your request. Please try again or contact us directly via WhatsApp.",
-    "hours": "Open daily: 10:00 AM – 3:00 PM"
+    "hours": "Mirpur: 10:00 AM–3:00 PM · HD Popular: 5:00–10:00 PM"
   },
   "blog": {
     "title": "Dental Health Advice",
@@ -152,7 +152,7 @@
     "chamber2": "HD Popular Dental Care",
     "chamber2Address": "202/5, West Kafrul, Taltala, Agargaon, Dhaka-1207",
     "hours": "Consultation Hours",
-    "hoursValue": "10:00 AM – 3:00 PM daily",
+    "hoursValue": "Mirpur: 10:00 AM – 3:00 PM · HD Popular: 5:00 PM – 10:00 PM · Closed Fridays",
     "phone": "Phone / WhatsApp",
     "email": "Email",
     "facebook": "Facebook",

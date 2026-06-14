@@ -29,6 +29,9 @@ const TIME_SLOTS = [
   "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
   "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM",
   "2:00 PM", "2:30 PM",
+  "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM",
+  "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM",
+  "9:00 PM", "9:30 PM",
 ];
 
 export default function AppointmentForm() {
@@ -65,19 +68,19 @@ export default function AppointmentForm() {
 
         {/* Sidebar info */}
         <aside className="lg:col-span-1 space-y-5">
-          <InfoCard
-            icon={<ClockIcon />}
-            title="Consultation Hours"
-            value={t("hours")}
-          />
           {CHAMBERS.map((chamber) => (
             <InfoCard
               key={chamber.id}
-              icon={<LocationIcon />}
+              icon={<ClockIcon />}
               title={t(chamber.id === "mirpur" ? "chamberMirpur" : "chamberKafrul")}
-              value={chamber.addressEn}
+              value={chamber.hours}
+              sub={chamber.addressEn}
             />
           ))}
+          <p className="text-xs text-neutral-500 px-1 flex items-center gap-1.5">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
+            Closed on Fridays
+          </p>
           <div className="bg-brand-50 border border-brand-100 rounded-2xl p-5">
             <p className="text-sm text-neutral-600">
               <strong className="text-brand-700">{t("noteLabel")}</strong>{" "}
@@ -168,7 +171,11 @@ export default function AppointmentForm() {
             <div className="grid sm:grid-cols-2 gap-5">
               <Field label={t("date")} error={errors.date?.message}>
                 <input
-                  {...register("date", { required: "Please select a date" })}
+                  {...register("date", {
+                    required: "Please select a date",
+                    validate: (v) =>
+                      new Date(v).getUTCDay() !== 5 || "Closed on Fridays — please choose another day",
+                  })}
                   type="date"
                   min={new Date().toISOString().split("T")[0]}
                   className={inputClass(!!errors.date)}
@@ -239,7 +246,7 @@ function Field({
   );
 }
 
-function InfoCard({ icon, title, value }: { icon: React.ReactNode; title: string; value: string }) {
+function InfoCard({ icon, title, value, sub }: { icon: React.ReactNode; title: string; value: string; sub?: string }) {
   return (
     <div className="bg-white rounded-2xl border border-neutral-100 p-5 flex items-start gap-3 shadow-sm">
       <div className="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
@@ -248,6 +255,7 @@ function InfoCard({ icon, title, value }: { icon: React.ReactNode; title: string
       <div>
         <p className="text-xs text-neutral-400 font-medium mb-0.5">{title}</p>
         <p className="text-sm text-neutral-800 font-medium leading-snug">{value}</p>
+        {sub && <p className="text-xs text-neutral-500 mt-1 leading-snug">{sub}</p>}
       </div>
     </div>
   );
