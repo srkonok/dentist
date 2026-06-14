@@ -20,6 +20,8 @@ function validate(data: Partial<BookingPayload>): string | null {
   if (!data.chamber) return "Chamber is required";
   if (!data.service) return "Service is required";
   if (!data.date) return "Date is required";
+  const today = new Date().toISOString().split("T")[0];
+  if (data.date < today) return "Appointment date cannot be in the past";
   if (!data.time) return "Time is required";
   return null;
 }

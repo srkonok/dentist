@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { DOCTOR, CHAMBERS } from "@/lib/constants";
+import { DOCTOR } from "@/lib/constants";
 
 export default function Footer() {
   const t = useTranslations("footer");
@@ -29,7 +29,7 @@ export default function Footer() {
                 height={48}
                 className="rounded-full bg-white p-0.5"
               />
-              <span className="font-bold text-white text-sm leading-tight">{DOCTOR.name}</span>
+              <span className="font-bold text-white text-sm leading-tight">{t("doctorName")}</span>
             </div>
             <p className="text-sm text-neutral-400 leading-relaxed mb-3">
               {t("tagline")}
@@ -42,19 +42,19 @@ export default function Footer() {
             <h3 className="text-white font-semibold text-sm mb-4">{t("quickLinks")}</h3>
             <ul className="space-y-2 text-sm" role="list">
               {[
-                { href: "/", label: "Home" },
-                { href: "/about", label: "About" },
-                { href: "/services", label: "Services" },
-                { href: "/appointment", label: "Book Appointment" },
-                { href: "/blog", label: "Dental Tips" },
-                { href: "/contact", label: "Contact" },
-              ].map(({ href, label }) => (
+                { href: "/", labelKey: "linkHome" },
+                { href: "/about", labelKey: "linkAbout" },
+                { href: "/services", labelKey: "linkServices" },
+                { href: "/appointment", labelKey: "linkAppointment" },
+                { href: "/blog", labelKey: "linkBlog" },
+                { href: "/contact", labelKey: "linkContact" },
+              ].map(({ href, labelKey }) => (
                 <li key={href}>
                   <Link
                     href={href}
                     className="text-neutral-400 hover:text-brand-400 transition-colors"
                   >
-                    {label}
+                    {t(labelKey as "linkHome" | "linkAbout" | "linkServices" | "linkAppointment" | "linkBlog" | "linkContact")}
                   </Link>
                 </li>
               ))}
@@ -65,12 +65,14 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold text-sm mb-4">{t("chambers")}</h3>
             <ul className="space-y-4 text-sm" role="list">
-              {CHAMBERS.map((chamber) => (
-                <li key={chamber.id}>
-                  <p className="text-brand-400 font-medium mb-0.5">{chamber.nameEn}</p>
-                  <p className="text-neutral-400 leading-snug">{chamber.addressEn}</p>
-                </li>
-              ))}
+              <li>
+                <p className="text-brand-400 font-medium mb-0.5">{t("chamber1Name")}</p>
+                <p className="text-neutral-400 leading-snug">{t("chamber1Address")}</p>
+              </li>
+              <li>
+                <p className="text-brand-400 font-medium mb-0.5">{t("chamber2Name")}</p>
+                <p className="text-neutral-400 leading-snug">{t("chamber2Address")}</p>
+              </li>
             </ul>
           </div>
 
@@ -92,10 +94,14 @@ export default function Footer() {
                 <span className="text-neutral-300 font-medium">Hours:</span>{" "}
                 {DOCTOR.consultationHours}
               </p>
-              <p className="text-neutral-400">
-                <span className="text-neutral-300 font-medium">Phone:</span>{" "}
-                <span className="text-yellow-400 text-xs">TODO: Add number</span>
-              </p>
+              {!DOCTOR.phone.startsWith("TODO") && (
+                <p className="text-neutral-400">
+                  <span className="text-neutral-300 font-medium">Phone:</span>{" "}
+                  <a href={`tel:${DOCTOR.phone}`} className="hover:text-brand-400 transition-colors">
+                    {DOCTOR.phone}
+                  </a>
+                </p>
+              )}
             </div>
           </div>
         </div>

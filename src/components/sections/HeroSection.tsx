@@ -25,11 +25,11 @@ export default function HeroSection() {
         </svg>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 pt-40">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-28 sm:py-28 sm:pt-36 lg:py-32 lg:pt-40">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
           {/* Text content */}
-          <div className="animate-fade-in-up">
+          <div className="animate-fade-in-up text-center lg:text-left">
             {/* BMDC badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/20 border border-brand-400/30 mb-6">
               <ShieldCheckIcon />
@@ -39,13 +39,13 @@ export default function HeroSection() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3">
               {t("name")}
             </h1>
-            <p className="text-brand-300 text-lg font-medium mb-4">{t("credentials")}</p>
-            <p className="text-3xl sm:text-4xl font-bold gradient-text mb-6">{t("tagline")}</p>
-            <p className="text-neutral-300 text-lg leading-relaxed mb-8 max-w-xl">
+            <p className="text-brand-300 text-sm sm:text-lg font-medium mb-4">{t("credentials")}</p>
+            <p className="text-2xl sm:text-3xl lg:text-4xl font-bold gradient-text mb-6">{t("tagline")}</p>
+            <p className="text-neutral-300 text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
               {t("description")}
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <Link
                 href="/appointment"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-brand-500 hover:bg-brand-400 text-white font-semibold text-lg transition-all shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5"
@@ -63,15 +63,17 @@ export default function HeroSection() {
             </div>
 
             {/* Trust stats */}
-            <div className="mt-10 flex flex-wrap gap-6">
+            <div className="mt-10 flex flex-wrap gap-6 justify-center lg:justify-start">
               {[
-                { label: "BMDC Registered", value: "✓" },
-                { label: "Oral Surgeon", value: "✓" },
-                { label: "Two Clinics", value: "Dhaka" },
-              ].map(({ label, value }) => (
-                <div key={label} className="flex items-center gap-2">
+                { labelKey: "trustBmdc", value: "✓" },
+                { labelKey: "trustSurgeon", value: "✓" },
+                { labelKey: "trustClinics", value: "2" },
+              ].map(({ labelKey, value }) => (
+                <div key={labelKey} className="flex items-center gap-2">
                   <span className="text-brand-400 font-bold">{value}</span>
-                  <span className="text-neutral-400 text-sm">{label}</span>
+                  <span className="text-neutral-400 text-sm">
+                    {t(labelKey as "trustBmdc" | "trustSurgeon" | "trustClinics")}
+                  </span>
                 </div>
               ))}
             </div>
@@ -80,24 +82,25 @@ export default function HeroSection() {
           {/* Doctor photo */}
           <div className="flex justify-center lg:justify-end animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <div className="relative">
-              {/* Decorative rings */}
-              <div className="absolute inset-0 rounded-full border-2 border-brand-400/30 scale-110" />
-              <div className="absolute inset-0 rounded-full border border-brand-400/15 scale-125" />
+              {/* Decorative rings — hidden on mobile to avoid horizontal overflow */}
+              <div className="hidden sm:block absolute inset-0 rounded-full border-2 border-brand-400/30 scale-110" />
+              <div className="hidden sm:block absolute inset-0 rounded-full border border-brand-400/15 scale-125" />
 
               {/* Doctor photo — circular crop shows face + shoulders */}
-              <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-brand-500/40 shadow-2xl bg-brand-900">
-                <Image
-                  src="/images/dr-atoshe.webp"
-                  alt={`${DOCTOR.name} — Dental Surgeon`}
-                  fill
-                  className="object-cover object-top"
-                  priority
-                  sizes="(max-width: 640px) 288px, (max-width: 1024px) 320px, 384px"
-                />
-              </div>
+              <div
+                className="w-56 h-56 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-brand-500/40 shadow-2xl"
+                style={{
+                  backgroundImage: "url('/images/dr-atoshe.webp')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "50% 35%",
+                  backgroundRepeat: "no-repeat",
+                }}
+                role="img"
+                aria-label={`${DOCTOR.name} — Dental Surgeon`}
+              />
 
-              {/* Floating card: BMDC */}
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2.5">
+              {/* Floating card: BMDC — hidden on mobile */}
+              <div className="hidden sm:flex absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 items-center gap-2.5">
                 <div className="w-9 h-9 rounded-full bg-brand-100 flex items-center justify-center">
                   <ShieldCheckIcon className="text-brand-600" />
                 </div>
@@ -107,10 +110,10 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* Floating card: Hours */}
-              <div className="absolute -top-2 -right-4 bg-white rounded-2xl shadow-xl px-4 py-3">
-                <p className="text-[10px] text-neutral-500 font-medium">Open Today</p>
-                <p className="text-xs font-bold text-neutral-800">10 AM – 3 PM</p>
+              {/* Floating card: Hours — hidden on mobile */}
+              <div className="hidden sm:block absolute -top-2 -right-4 bg-white rounded-2xl shadow-xl px-4 py-3">
+                <p className="text-[10px] text-neutral-500 font-medium">{t("openToday")}</p>
+                <p className="text-xs font-bold text-neutral-800">{DOCTOR.consultationHours}</p>
               </div>
             </div>
           </div>
@@ -156,26 +159,3 @@ function ArrowRightIcon() {
   );
 }
 
-function ToothIllustration() {
-  return (
-    <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      {/* Main tooth shape */}
-      <path
-        d="M80 20 C60 20 44 32 40 50 C36 62 38 74 42 84 C46 96 44 108 42 122 C40 134 48 142 56 140 C64 138 66 128 68 118 C70 108 74 104 80 104 C86 104 90 108 92 118 C94 128 96 138 104 140 C112 142 120 134 118 122 C116 108 114 96 118 84 C122 74 124 62 120 50 C116 32 100 20 80 20 Z"
-        fill="white"
-        opacity="0.9"
-      />
-      {/* Tooth shine */}
-      <path
-        d="M60 30 C55 34 52 40 51 48"
-        stroke="white"
-        strokeWidth="3"
-        strokeLinecap="round"
-        opacity="0.5"
-      />
-      {/* Cross symbol */}
-      <rect x="74" y="50" width="12" height="36" rx="4" fill="#0d9488" opacity="0.7" />
-      <rect x="62" y="62" width="36" height="12" rx="4" fill="#0d9488" opacity="0.7" />
-    </svg>
-  );
-}

@@ -5,38 +5,44 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { SITE_URL } from "@/lib/constants";
 import "../globals.css";
-
-export const metadata: Metadata = {
-  title: {
-    template: "%s | Dr. Atoshe Islam — Dental Surgeon",
-    default: "Dr. Atoshe Islam — Dental Surgeon, Dhaka",
-  },
-  description:
-    "Expert dental care by Dr. Atoshe Islam, BDS (DU), PGT Oral & Maxillofacial Surgery. Two clinics in Dhaka — Mirpur 14 & West Kafrul.",
-  metadataBase: new URL("https://dratosheislam.com"), // TODO: update with real domain
-  icons: {
-    icon: [
-      { url: "/favicon.ico",        sizes: "any" },
-      { url: "/favicon-16x16.png",  sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png",  sizes: "32x32", type: "image/png" },
-    ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-    other: [
-      { rel: "manifest", url: "/site.webmanifest" },
-    ],
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "Dr. Atoshe Islam Dental Practice",
-  },
-};
 
 type Props = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: {
+      template: "%s | Dr. Atoshe Islam — Dental Surgeon",
+      default: "Dr. Atoshe Islam — Dental Surgeon, Dhaka",
+    },
+    description:
+      "Expert dental care by Dr. Atoshe Islam, BDS (DU), PGT Oral & Maxillofacial Surgery. Two clinics in Dhaka — Mirpur 14 & West Kafrul.",
+    metadataBase: new URL(SITE_URL),
+    icons: {
+      icon: [
+        { url: "/favicon.ico",       sizes: "any" },
+        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+      other: [{ rel: "manifest", url: "/site.webmanifest" }],
+    },
+    openGraph: {
+      type: "website",
+      locale: locale === "bn" ? "bn_BD" : "en_US",
+      siteName: "Dr. Atoshe Islam Dental Practice",
+    },
+  };
+}
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
@@ -48,7 +54,6 @@ export default async function LocaleLayout({ children, params }: Props) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#0d9488" />
         <meta name="msapplication-TileColor" content="#0d9488" />
       </head>

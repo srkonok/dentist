@@ -40,21 +40,21 @@ export default function AboutPage() {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
 
           {/* Doctor photo */}
-          <div className="sticky top-24">
-            <div className="relative max-w-sm mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[600/760]">
+          <div className="lg:sticky lg:top-24">
+            <div className="relative max-w-xs sm:max-w-sm mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] sm:aspect-[600/760]">
               <Image
                 src="/images/dr-atoshe.webp"
                 alt={t("photoAlt")}
                 fill
-                className="object-cover object-top"
+                className="object-cover object-[50%_20%] sm:object-top"
                 priority
-                sizes="(max-width: 768px) 100vw, 384px"
+                sizes="(max-width: 640px) 320px, 384px"
               />
               {/* Gradient overlay at bottom for text legibility */}
-              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-900/70 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 text-center">
-                <p className="text-white font-bold text-sm drop-shadow">{DOCTOR.name}</p>
-                <p className="text-brand-200 text-xs">BMDC Reg. {DOCTOR.bmdcReg}</p>
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-900/95 via-brand-900/60 to-transparent" />
+              <div className="absolute bottom-3 left-4 right-4 text-center">
+                <p className="text-white font-bold text-sm" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.8)" }}>{t("doctorName")}</p>
+                <p className="text-brand-200 text-xs" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.7)" }}>BMDC Reg. {DOCTOR.bmdcReg}</p>
               </div>
             </div>
 
@@ -75,8 +75,8 @@ export default function AboutPage() {
 
           {/* Content */}
           <div>
-            <h2 className="text-2xl font-bold text-neutral-900 mb-4">{DOCTOR.name}</h2>
-            <p className="text-brand-600 font-medium mb-6">{DOCTOR.credentials}</p>
+            <h2 className="text-2xl font-bold text-neutral-900 mb-4">{t("doctorName")}</h2>
+            <p className="text-brand-600 font-medium mb-6">{t("doctorCredentials")}</p>
             <p className="text-neutral-600 leading-relaxed mb-8">{t("bio")}</p>
 
             {/* Qualifications */}
@@ -107,29 +107,13 @@ export default function AboutPage() {
               href="/appointment"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-600 text-white font-semibold hover:bg-brand-700 transition-colors shadow"
             >
-              Book a Consultation
+              {t("bookCta")}
               <ArrowIcon />
             </Link>
           </div>
         </div>
       </div>
     </div>
-  );
-}
-
-function DoctorPlaceholderSvg() {
-  return (
-    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="60" cy="45" r="28" fill="#0d9488" opacity="0.3" />
-      <path d="M20 110 C20 85 40 75 60 75 C80 75 100 85 100 110" fill="#0d9488" opacity="0.2" />
-      <circle cx="60" cy="45" r="22" fill="#0d9488" opacity="0.5" />
-      <circle cx="60" cy="42" r="14" fill="white" opacity="0.9" />
-      <rect x="55" y="60" width="10" height="4" rx="2" fill="#0d9488" opacity="0.6" />
-      {/* Stethoscope */}
-      <path d="M45 68 C45 80 55 85 60 85 C65 85 75 80 75 68" stroke="#0d9488" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <circle cx="45" cy="70" r="4" fill="#0d9488" opacity="0.5" />
-      <circle cx="75" cy="70" r="4" fill="#0d9488" opacity="0.5" />
-    </svg>
   );
 }
 

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState, isValidElement, cloneElement, Children } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { CHAMBERS } from "@/lib/constants";
 
 interface FormData {
   name: string;
@@ -15,14 +16,14 @@ interface FormData {
   notes: string;
 }
 
-const SERVICES_EN = [
-  "Dental Implants",
-  "Wisdom Tooth Extraction",
-  "Root Canal Treatment",
-  "Cosmetic Dentistry",
-  "Oral & Maxillofacial Surgery",
-  "Routine Checkup & Cleaning",
-];
+const SERVICE_KEYS = [
+  "implants",
+  "wisdom",
+  "rootCanal",
+  "cosmetic",
+  "oralSurgery",
+  "checkup",
+] as const;
 
 const TIME_SLOTS = [
   "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
@@ -32,6 +33,7 @@ const TIME_SLOTS = [
 
 export default function AppointmentForm() {
   const t = useTranslations("appointment");
+  const ts = useTranslations("services");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const {
@@ -68,20 +70,18 @@ export default function AppointmentForm() {
             title="Consultation Hours"
             value={t("hours")}
           />
-          <InfoCard
-            icon={<LocationIcon />}
-            title={t("chamberMirpur")}
-            value="Navy Market, Mirpur 14, Dhaka-1206"
-          />
-          <InfoCard
-            icon={<LocationIcon />}
-            title={t("chamberKafrul")}
-            value="202/5, West Kafrul, Agargaon, Dhaka-1207"
-          />
+          {CHAMBERS.map((chamber) => (
+            <InfoCard
+              key={chamber.id}
+              icon={<LocationIcon />}
+              title={t(chamber.id === "mirpur" ? "chamberMirpur" : "chamberKafrul")}
+              value={chamber.addressEn}
+            />
+          ))}
           <div className="bg-brand-50 border border-brand-100 rounded-2xl p-5">
             <p className="text-sm text-neutral-600">
-              <strong className="text-brand-700">Note:</strong> After submitting, we will call or WhatsApp you to confirm your appointment slot.{" "}
-              <span className="text-yellow-600 font-medium">TODO: Add phone/WhatsApp number</span>
+              <strong className="text-brand-700">{t("noteLabel")}</strong>{" "}
+              {t("noteText")}
             </p>
           </div>
         </aside>
@@ -159,8 +159,8 @@ export default function AppointmentForm() {
                 className={inputClass(!!errors.service)}
               >
                 <option value="">{t("servicePlaceholder")}</option>
-                {SERVICES_EN.map((s) => (
-                  <option key={s} value={s}>{s}</option>
+                {SERVICE_KEYS.map((key) => (
+                  <option key={key} value={key}>{ts(`${key}.name`)}</option>
                 ))}
               </select>
             </Field>
@@ -226,10 +226,12 @@ function Field({
   error?: string;
   children: React.ReactNode;
 }) {
+  const id = useId();
+  const child = Children.only(children);
   return (
     <div>
-      <label className="block text-sm font-medium text-neutral-700 mb-1.5">{label}</label>
-      {children}
+      <label htmlFor={id} className="block text-sm font-medium text-neutral-700 mb-1.5">{label}</label>
+      {isValidElement<{ id?: string }>(child) ? cloneElement(child, { id }) : child}
       {error && (
         <p role="alert" className="text-xs text-red-500 mt-1">{error}</p>
       )}

@@ -12,16 +12,23 @@ interface ContactFormData {
 
 export default function ContactForm() {
   const t = useTranslations("contact");
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormData>();
 
   async function onSubmit(data: ContactFormData) {
     setStatus("loading");
-    // TODO: connect to email API
-    await new Promise((r) => setTimeout(r, 800));
-    console.log("[CONTACT FORM]", data);
-    setStatus("success");
-    reset();
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("Server error");
+      setStatus("success");
+      reset();
+    } catch {
+      setStatus("error");
+    }
   }
 
   const inputCls = (err: boolean) =>
@@ -31,7 +38,7 @@ export default function ContactForm() {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-neutral-100 p-8">
-      <h2 className="text-xl font-bold text-neutral-900 mb-6">Send us a message</h2>
+      <h2 className="text-xl font-bold text-neutral-900 mb-6">{t("formTitle")}</h2>
 
       {status === "success" && (
         <div role="alert" className="mb-5 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium">
@@ -39,10 +46,17 @@ export default function ContactForm() {
         </div>
       )}
 
+      {status === "error" && (
+        <div role="alert" className="mb-5 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+          {t("formError")}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">{t("formName")}</label>
+          <label htmlFor="contact-name" className="block text-sm font-medium text-neutral-700 mb-1.5">{t("formName")}</label>
           <input
+            id="contact-name"
             {...register("name", { required: "Name is required" })}
             className={inputCls(!!errors.name)}
             placeholder="Your full name"
@@ -52,8 +66,9 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">{t("formEmail")}</label>
+          <label htmlFor="contact-email" className="block text-sm font-medium text-neutral-700 mb-1.5">{t("formEmail")}</label>
           <input
+            id="contact-email"
             {...register("email", {
               required: "Email is required",
               pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Invalid email" },
@@ -67,8 +82,9 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">{t("formMessage")}</label>
+          <label htmlFor="contact-message" className="block text-sm font-medium text-neutral-700 mb-1.5">{t("formMessage")}</label>
           <textarea
+            id="contact-message"
             {...register("message", { required: "Message is required" })}
             rows={5}
             className={`${inputCls(!!errors.message)} resize-none`}

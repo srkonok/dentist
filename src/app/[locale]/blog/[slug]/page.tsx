@@ -144,7 +144,7 @@ export default async function BlogPostPage({ params }: Props) {
             href="/appointment"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-brand-600 text-white font-semibold hover:bg-brand-700 transition-colors shadow"
           >
-            Book an Appointment
+            {t("bookCta")}
           </Link>
         </div>
       </div>

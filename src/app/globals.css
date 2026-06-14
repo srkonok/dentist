@@ -130,3 +130,10 @@ body {
   overflow: hidden;
   line-height: 0;
 }
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up { animation: none; }
+  .card-hover { transition: none; }
+  html { scroll-behavior: auto; }
+}
