@@ -91,6 +91,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Remove 300 ms tap delay on real mobile devices */
+button, a, [role="button"] {
+  touch-action: manipulation;
+}
+
 /* Apply Bangla font when locale = bn */
 :lang(bn), [lang="bn"] {
   font-family: var(--font-bn);

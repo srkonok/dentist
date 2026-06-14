@@ -127,8 +127,9 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className={`lg:hidden p-2 rounded-lg transition-colors ${isHome && !scrolled ? "text-white hover:bg-white/15" : "text-neutral-700 hover:bg-neutral-100"}`}
+            type="button"
+            onClick={() => setMenuOpen((v) => !v)}
+            className={`lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg transition-colors ${isHome && !scrolled ? "text-white hover:bg-white/15" : "text-neutral-700 hover:bg-neutral-100"}`}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
           >
@@ -137,11 +138,9 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile menu — animated slide */}
+      {/* Mobile menu */}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          menuOpen ? "max-h-[480px] opacity-100" : "max-h-0 opacity-0 pointer-events-none"
-        }`}
+        className={`lg:hidden ${menuOpen ? "block" : "hidden"}`}
         style={{ background: "rgba(255,255,255,0.98)", backdropFilter: "blur(20px)" }}
       >
         <div className="border-t border-neutral-100 px-4 py-4 space-y-1">
