@@ -52,10 +52,10 @@ export default function Navbar() {
         <Link
           href="/"
           className="flex items-center gap-2.5 group shrink-0"
-          aria-label="Dr. Atoshe Islam — Home"
+          aria-label="Dr. Atoshi Islam — Home"
         >
           <Image
-              src="/images/hd-popular-logo.webp"
+              src="/images/hd-popular-logo.svg"
               alt="HD Popular Dental Care logo"
               width={44}
               height={44}

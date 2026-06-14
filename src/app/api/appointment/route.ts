@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { transporter, NOTIFY_EMAIL, FROM_ADDRESS } from "@/lib/mailer";
 
 interface BookingPayload {
   name: string;
@@ -14,7 +15,7 @@ interface BookingPayload {
 function validate(data: Partial<BookingPayload>): string | null {
   if (!data.name?.trim()) return "Name is required";
   if (!data.phone?.trim()) return "Phone is required";
-  if (!/^01[3-9]\d{8}$/.test(data.phone)) return "Invalid phone number";
+  if (!/^(\+?880)?01[3-9]\d{8}$/.test(data.phone)) return "Invalid phone number";
   if (!data.email?.trim()) return "Email is required";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return "Invalid email";
   if (!data.chamber) return "Chamber is required";
@@ -37,12 +38,38 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error }, { status: 422 });
   }
 
-  // TODO: Connect to email service (e.g. Resend, SendGrid) or database (e.g. Supabase, Prisma)
-  // For now, log to server console and return success.
-  console.log("[APPOINTMENT BOOKING]", {
-    timestamp: new Date().toISOString(),
-    ...body,
-  });
+  const chamberLabel =
+    body.chamber === "mirpur"
+      ? "Mirpur Dental Care — Mirpur 14"
+      : "HD Popular Dental Care — West Kafrul";
+
+  try {
+    await transporter.sendMail({
+      from: FROM_ADDRESS,
+      to: NOTIFY_EMAIL,
+      replyTo: body.email,
+      subject: `New Appointment Request — ${body.name} (${body.date} ${body.time})`,
+      html: `
+        <h2 style="color:#0d9488">New Appointment Booking</h2>
+        <table cellpadding="6" style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
+          <tr><td><strong>Name</strong></td><td>${body.name}</td></tr>
+          <tr><td><strong>Phone</strong></td><td>${body.phone}</td></tr>
+          <tr><td><strong>Email</strong></td><td>${body.email}</td></tr>
+          <tr><td><strong>Chamber</strong></td><td>${chamberLabel}</td></tr>
+          <tr><td><strong>Service</strong></td><td>${body.service}</td></tr>
+          <tr><td><strong>Date</strong></td><td>${body.date}</td></tr>
+          <tr><td><strong>Time</strong></td><td>${body.time}</td></tr>
+          <tr><td><strong>Notes</strong></td><td>${body.notes || "—"}</td></tr>
+        </table>
+      `,
+    });
+  } catch (err) {
+    console.error("[APPOINTMENT EMAIL ERROR]", err);
+    return NextResponse.json(
+      { error: "Failed to send notification. Please try again." },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json(
     { message: "Booking received. We will contact you to confirm." },

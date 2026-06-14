@@ -10,17 +10,23 @@
   },
   "hero": {
     "badge": "BMDC Reg. No: 16100",
-    "name": "Dr. Atoshe Islam",
+    "name": "Dr. Atoshi Islam",
     "credentials": "BDS (DU) · PGT Oral & Maxillofacial Surgery",
     "tagline": "Expert Dental Care You Can Trust",
     "description": "Providing compassionate, state-of-the-art dental treatment at two convenient locations in Dhaka. Your smile is our priority.",
     "cta": "Book Appointment",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "trustBmdc": "BMDC Reg. #{reg}",
+    "trustDegree": "BDS · DU · Oral Surgeon",
+    "trustClinics": "2 Clinics · Dhaka",
+    "openToday": "Open Today",
+    "openHours": "10 AM – 3 PM",
+    "bmdcRegLabel": "BMDC Reg."
   },
   "about": {
-    "title": "About Dr. Atoshe Islam",
+    "title": "About Dr. Atoshi Islam",
     "subtitle": "Committed to Your Oral Health",
-    "bio": "Dr. Atoshe Islam is a highly qualified dental surgeon with a Bachelor of Dental Surgery (BDS) from the University of Dhaka and postgraduate training in Oral & Maxillofacial Surgery at Dhaka Dental College. With a deep commitment to patient comfort and cutting-edge techniques, Dr. Islam provides comprehensive dental care across two clinics in Dhaka.",
+    "bio": "Dr. Atoshi Islam is a highly qualified dental surgeon with a Bachelor of Dental Surgery (BDS) from the University of Dhaka and postgraduate training in Oral & Maxillofacial Surgery at Dhaka Dental College. With a deep commitment to patient comfort and cutting-edge techniques, Dr. Islam provides comprehensive dental care across two clinics in Dhaka.",
     "bmdcLabel": "BMDC Registration",
     "bmdcNumber": "16100",
     "qualifications": "Qualifications",
@@ -30,11 +36,18 @@
     "experience": "Clinical Experience",
     "expDesc": "Years of hands-on experience in oral surgery, cosmetic dentistry, implantology, and general dental care. Trusted by hundreds of patients across Dhaka.",
     "photoAlt": "Dr. Atoshe Islam — Dental Surgeon",
-    "photoTodo": "TODO: Replace with actual doctor photo"
+    "bookConsultation": "Book a Consultation",
+    "bmdcLabel2": "Bangladesh Medical & Dental Council"
   },
   "services": {
     "title": "Our Services",
     "subtitle": "Comprehensive dental care under one roof",
+    "pill": "Our Services",
+    "bookNow": "Book Now",
+    "viewAll": "View All Services",
+    "ctaTitle": "Ready to get started?",
+    "ctaSubtitle": "Book your appointment today at either of our Dhaka clinics.",
+    "ctaBtn": "Book Appointment",
     "implants": {
       "name": "Dental Implants",
       "desc": "Permanent, natural-looking tooth replacements that restore function and confidence."
@@ -63,6 +76,11 @@
   "whyUs": {
     "title": "Why Choose Us",
     "subtitle": "Patient safety and comfort are at the heart of everything we do",
+    "pill": "Why Choose Us",
+    "statBmdc": "Registered",
+    "statBds": "Degree · DU",
+    "statClinics": "Clinics",
+    "statSterilized": "Sterilized",
     "qualified": {
       "title": "Qualified Oral Surgeon",
       "desc": "Dr. Islam holds specialized postgraduate training in Oral & Maxillofacial Surgery from Dhaka Dental College."
@@ -80,9 +98,19 @@
       "desc": "We take time to explain every step. Pain management is a priority so you can relax in our care."
     }
   },
+  "cta": {
+    "pill": "Booking Open",
+    "title": "Ready for a Healthier Smile?",
+    "subtitle": "Book your appointment at either of our Dhaka clinics. Expert dental care with a gentle touch.",
+    "bookBtn": "Book Appointment",
+    "contactBtn": "Contact Us",
+    "trustLine": "BMDC Reg. #{reg} · Two locations in Dhaka · Open daily 10 AM – 3 PM"
+  },
   "testimonials": {
     "title": "What Our Patients Say",
     "subtitle": "Trusted by families across Dhaka",
+    "pill": "Testimonials",
+    "verifiedPatients": "Verified Patients",
     "t1": {
       "name": "Rahim Uddin",
       "location": "Mirpur, Dhaka",
@@ -96,7 +124,7 @@
     "t3": {
       "name": "Shafiqul Islam",
       "location": "Agargaon, Dhaka",
-      "text": "Professional service and a genuine doctor. My whole family now visits Dr. Atoshe Islam for all dental needs."
+      "text": "Professional service and a genuine doctor. My whole family now visits Dr. Atoshi Islam for all dental needs."
     }
   },
   "appointment": {
@@ -117,57 +145,87 @@
     "time": "Preferred Time",
     "notes": "Additional Notes",
     "notesPlaceholder": "Any special requests or medical history we should know...",
+    "chamberPlaceholder": "— Select chamber —",
+    "timePlaceholder": "— Select time —",
+    "serviceImplants": "Dental Implants",
+    "serviceWisdom": "Wisdom Tooth Extraction",
+    "serviceRootCanal": "Root Canal Treatment",
+    "serviceCosmetic": "Cosmetic Dentistry",
+    "serviceOralSurgery": "Oral & Maxillofacial Surgery",
+    "serviceCheckup": "Routine Checkup & Cleaning",
     "submit": "Confirm Booking",
+    "submitting": "Submitting…",
     "success": "Thank you! Your appointment request has been received. We will contact you shortly to confirm.",
     "error": "Something went wrong. Please try again or call us directly.",
-    "hours": "Consultation Hours: 10:00 AM – 3:00 PM"
+    "hours": "Consultation Hours: 10:00 AM – 3:00 PM",
+    "hoursLabel": "Consultation Hours",
+    "sidebarNote": "After submitting, we will call or WhatsApp you to confirm your appointment slot.",
+    "errorNameRequired": "Full name is required",
+    "errorPhoneRequired": "Phone number is required",
+    "errorPhoneInvalid": "Enter a valid BD phone number",
+    "errorEmailRequired": "Email is required",
+    "errorEmailInvalid": "Enter a valid email address",
+    "errorChamberRequired": "Please select a chamber",
+    "errorServiceRequired": "Please select a service",
+    "errorDateRequired": "Please select a date",
+    "errorTimeRequired": "Please select a time"
   },
   "blog": {
     "title": "Dental Tips & News",
     "subtitle": "Expert advice for a healthier smile",
     "readMore": "Read More",
-    "backToBlog": "← Back to Blog",
-    "postedOn": "Posted on"
+    "backToBlog": "Back to Blog",
+    "postedOn": "Posted on",
+    "authorBio": "BDS (DU) · PGT Oral & Maxillofacial Surgery, Dhaka Dental College",
+    "bookAppointment": "Book an Appointment"
   },
   "contact": {
     "title": "Contact Us",
     "subtitle": "We are here to help — reach out anytime",
     "chamber1": "Mirpur Dental Care",
     "chamber1Address": "1st Floor, Navy Market, Mirpur 14, Dhaka-1206",
-    "chamber1AddressTodo": "TODO: Confirm floor number (source says both 1st and 2nd floor)",
     "chamber2": "HD Popular Dental Care",
     "chamber2Address": "202/5, West Kafrul, Taltala, Agargaon, Dhaka-1207",
     "hours": "Consultation Hours",
     "hoursValue": "10:00 AM – 3:00 PM",
-    "hoursTodo": "TODO: Confirm if hours apply to both chambers",
     "phone": "Phone / WhatsApp",
-    "phoneTodo": "TODO: Add phone number",
     "email": "Email",
-    "emailTodo": "TODO: Add email address",
     "facebook": "Facebook Page",
     "facebookPage": "HD Popular Dental Care",
+    "formTitle": "Send us a message",
     "formName": "Your Name",
+    "formNamePlaceholder": "Your full name",
     "formEmail": "Your Email",
+    "formEmailPlaceholder": "your@email.com",
     "formMessage": "Message",
+    "formMessagePlaceholder": "How can we help you?",
     "formSubmit": "Send Message",
+    "formSending": "Sending…",
     "formSuccess": "Message sent! We will get back to you soon.",
-    "mapTodo": "TODO: Replace with embedded Google Map"
+    "formError": "Something went wrong. Please try again.",
+    "errorNameRequired": "Name is required",
+    "errorEmailRequired": "Email is required",
+    "errorEmailInvalid": "Enter a valid email address",
+    "errorMessageRequired": "Message is required",
+    "openGoogleMaps": "Open in Google Maps"
   },
   "footer": {
     "tagline": "Expert dental care with compassion and precision.",
     "quickLinks": "Quick Links",
     "chambers": "Our Chambers",
     "follow": "Follow Us",
-    "copyright": "© {year} Dr. Atoshe Islam Dental Practice. All rights reserved.",
+    "hours": "Hours",
+    "phone": "Phone",
+    "copyright": "© {year} Dr. Atoshi Islam Dental Practice. All rights reserved.",
     "bmdc": "BMDC Reg. No: 16100"
   },
   "meta": {
-    "homeTitle": "Dr. Atoshe Islam — Dental Surgeon, Dhaka",
-    "homeDesc": "Expert dental care by Dr. Atoshe Islam, BDS (DU), PGT Oral & Maxillofacial Surgery. Two clinics in Dhaka — Mirpur 14 & West Kafrul.",
-    "aboutTitle": "About Dr. Atoshe Islam — Dental Surgeon",
-    "servicesTitle": "Dental Services — Dr. Atoshe Islam",
-    "appointmentTitle": "Book an Appointment — Dr. Atoshe Islam",
-    "blogTitle": "Dental Tips & Blog — Dr. Atoshe Islam",
-    "contactTitle": "Contact Us — Dr. Atoshe Islam Dental Practice"
+    "homeTitle": "Dr. Atoshi Islam — Dental Surgeon, Dhaka",
+    "homeDesc": "Expert dental care by Dr. Atoshi Islam, BDS (DU), PGT Oral & Maxillofacial Surgery. Two clinics in Dhaka — Mirpur 14 & West Kafrul.",
+    "aboutTitle": "About Dr. Atoshi Islam — Dental Surgeon",
+    "servicesTitle": "Dental Services — Dr. Atoshi Islam",
+    "appointmentTitle": "Book an Appointment — Dr. Atoshi Islam",
+    "blogTitle": "Dental Tips & Blog — Dr. Atoshi Islam",
+    "contactTitle": "Contact Us — Dr. Atoshi Islam Dental Practice"
   }
 }

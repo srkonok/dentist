@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- Teal gradient matching brand-500 → brand-700 -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14b8a6"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <!-- Subtle inner glow for tooth -->
+    <linearGradient id="toothFill" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#e6faf8" stop-opacity="1"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f766e" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Circle background -->
+  <circle cx="100" cy="100" r="98" fill="url(#bg)" filter="url(#shadow)"/>
+  <!-- Subtle inner ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+
+  <!-- Tooth shape — anatomically inspired molar silhouette -->
+  <!-- Crown: rounded rectangle with cusp bumps on top -->
+  <path d="
+    M 68 85
+    C 68 72, 76 64, 86 64
+    C 90 64, 93 66, 96 70
+    C 98 72, 100 73, 102 72
+    C 105 70, 108 67, 112 65
+    C 118 62, 128 65, 132 74
+    C 135 80, 134 88, 132 93
+    C 130 98, 128 102, 127 108
+    C 125 116, 124 122, 122 128
+    C 120 134, 116 138, 112 138
+    C 108 138, 106 135, 105 130
+    C 104 125, 103 120, 100 120
+    C 97 120, 96 125, 95 130
+    C 94 135, 92 138, 88 138
+    C 84 138, 80 134, 78 128
+    C 76 122, 75 116, 73 108
+    C 72 102, 70 98, 68 93
+    C 66 88, 66 90, 68 85
+    Z
+  " fill="url(#toothFill)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+
+  <!-- Medical cross in teal on tooth -->
+  <rect x="94" y="78" width="12" height="32" rx="3" fill="#14b8a6" opacity="0.85"/>
+  <rect x="84" y="88" width="32" height="12" rx="3" fill="#14b8a6" opacity="0.85"/>
+
+  <!-- "HD" monogram below tooth — tight, bold, white -->
+  <text
+    x="100"
+    y="162"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="18"
+    font-weight="700"
+    fill="white"
+    text-anchor="middle"
+    letter-spacing="4"
+    opacity="0.95"
+  >HD</text>
+
+  <!-- Thin rule under monogram -->
+  <line x1="74" y1="168" x2="126" y2="168" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+
+  <!-- "POPULAR" label -->
+  <text
+    x="100"
+    y="180"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="8.5"
+    font-weight="400"
+    fill="rgba(255,255,255,0.75)"
+    text-anchor="middle"
+    letter-spacing="3.5"
+  >POPULAR</text>
+</svg>

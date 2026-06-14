@@ -35,7 +35,7 @@ export function getAllPosts(locale: string): PostMeta[] {
         title: data.title ?? slug,
         description: data.description ?? "",
         date: data.date ?? "",
-        author: data.author ?? "Dr. Atoshe Islam",
+        author: data.author ?? "Dr. Atoshi Islam",
         tags: data.tags ?? [],
       };
     })
@@ -56,7 +56,7 @@ export function getPost(slug: string, locale: string): Post | null {
         title: data.title ?? slug,
         description: data.description ?? "",
         date: data.date ?? "",
-        author: data.author ?? "Dr. Atoshe Islam",
+        author: data.author ?? "Dr. Atoshi Islam",
         tags: data.tags ?? [],
         content,
       };

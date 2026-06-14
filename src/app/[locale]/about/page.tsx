@@ -107,29 +107,13 @@ export default function AboutPage() {
               href="/appointment"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-600 text-white font-semibold hover:bg-brand-700 transition-colors shadow"
             >
-              Book a Consultation
+              {t("bookConsultation")}
               <ArrowIcon />
             </Link>
           </div>
         </div>
       </div>
     </div>
-  );
-}
-
-function DoctorPlaceholderSvg() {
-  return (
-    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="60" cy="45" r="28" fill="#0d9488" opacity="0.3" />
-      <path d="M20 110 C20 85 40 75 60 75 C80 75 100 85 100 110" fill="#0d9488" opacity="0.2" />
-      <circle cx="60" cy="45" r="22" fill="#0d9488" opacity="0.5" />
-      <circle cx="60" cy="42" r="14" fill="white" opacity="0.9" />
-      <rect x="55" y="60" width="10" height="4" rx="2" fill="#0d9488" opacity="0.6" />
-      {/* Stethoscope */}
-      <path d="M45 68 C45 80 55 85 60 85 C65 85 75 80 75 68" stroke="#0d9488" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <circle cx="45" cy="70" r="4" fill="#0d9488" opacity="0.5" />
-      <circle cx="75" cy="70" r="4" fill="#0d9488" opacity="0.5" />
-    </svg>
   );
 }
 

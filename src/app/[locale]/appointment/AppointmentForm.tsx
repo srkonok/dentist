@@ -15,15 +15,6 @@ interface FormData {
   notes: string;
 }
 
-const SERVICES_EN = [
-  "Dental Implants",
-  "Wisdom Tooth Extraction",
-  "Root Canal Treatment",
-  "Cosmetic Dentistry",
-  "Oral & Maxillofacial Surgery",
-  "Routine Checkup & Cleaning",
-];
-
 const TIME_SLOTS = [
   "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
   "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM",
@@ -57,6 +48,15 @@ export default function AppointmentForm() {
     }
   }
 
+  const services = [
+    { key: "serviceImplants" },
+    { key: "serviceWisdom" },
+    { key: "serviceRootCanal" },
+    { key: "serviceCosmetic" },
+    { key: "serviceOralSurgery" },
+    { key: "serviceCheckup" },
+  ] as const;
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="grid lg:grid-cols-3 gap-10">
@@ -65,7 +65,7 @@ export default function AppointmentForm() {
         <aside className="lg:col-span-1 space-y-5">
           <InfoCard
             icon={<ClockIcon />}
-            title="Consultation Hours"
+            title={t("hoursLabel")}
             value={t("hours")}
           />
           <InfoCard
@@ -80,8 +80,7 @@ export default function AppointmentForm() {
           />
           <div className="bg-brand-50 border border-brand-100 rounded-2xl p-5">
             <p className="text-sm text-neutral-600">
-              <strong className="text-brand-700">Note:</strong> After submitting, we will call or WhatsApp you to confirm your appointment slot.{" "}
-              <span className="text-yellow-600 font-medium">TODO: Add phone/WhatsApp number</span>
+              <strong className="text-brand-700">Note:</strong> {t("sidebarNote")}
             </p>
           </div>
         </aside>
@@ -106,20 +105,22 @@ export default function AppointmentForm() {
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
             <div className="grid sm:grid-cols-2 gap-5">
-              <Field label={t("name")} error={errors.name?.message}>
+              <Field label={t("name")} htmlFor="appt-name" error={errors.name?.message}>
                 <input
-                  {...register("name", { required: "Full name is required" })}
+                  id="appt-name"
+                  {...register("name", { required: t("errorNameRequired") })}
                   placeholder={t("namePlaceholder")}
                   className={inputClass(!!errors.name)}
                   autoComplete="name"
                 />
               </Field>
 
-              <Field label={t("phone")} error={errors.phone?.message}>
+              <Field label={t("phone")} htmlFor="appt-phone" error={errors.phone?.message}>
                 <input
+                  id="appt-phone"
                   {...register("phone", {
-                    required: "Phone number is required",
-                    pattern: { value: /^01[3-9]\d{8}$/, message: "Enter a valid BD phone number" },
+                    required: t("errorPhoneRequired"),
+                    pattern: { value: /^(\+?880)?01[3-9]\d{8}$/, message: t("errorPhoneInvalid") },
                   })}
                   placeholder={t("phonePlaceholder")}
                   className={inputClass(!!errors.phone)}
@@ -129,11 +130,12 @@ export default function AppointmentForm() {
               </Field>
             </div>
 
-            <Field label={t("email")} error={errors.email?.message}>
+            <Field label={t("email")} htmlFor="appt-email" error={errors.email?.message}>
               <input
+                id="appt-email"
                 {...register("email", {
-                  required: "Email is required",
-                  pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email" },
+                  required: t("errorEmailRequired"),
+                  pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: t("errorEmailInvalid") },
                 })}
                 placeholder={t("emailPlaceholder")}
                 className={inputClass(!!errors.email)}
@@ -142,45 +144,49 @@ export default function AppointmentForm() {
               />
             </Field>
 
-            <Field label={t("chamber")} error={errors.chamber?.message}>
+            <Field label={t("chamber")} htmlFor="appt-chamber" error={errors.chamber?.message}>
               <select
-                {...register("chamber", { required: "Please select a chamber" })}
+                id="appt-chamber"
+                {...register("chamber", { required: t("errorChamberRequired") })}
                 className={inputClass(!!errors.chamber)}
               >
-                <option value="">— Select chamber —</option>
+                <option value="">{t("chamberPlaceholder")}</option>
                 <option value="mirpur">{t("chamberMirpur")}</option>
                 <option value="kafrul">{t("chamberKafrul")}</option>
               </select>
             </Field>
 
-            <Field label={t("service")} error={errors.service?.message}>
+            <Field label={t("service")} htmlFor="appt-service" error={errors.service?.message}>
               <select
-                {...register("service", { required: "Please select a service" })}
+                id="appt-service"
+                {...register("service", { required: t("errorServiceRequired") })}
                 className={inputClass(!!errors.service)}
               >
                 <option value="">{t("servicePlaceholder")}</option>
-                {SERVICES_EN.map((s) => (
-                  <option key={s} value={s}>{s}</option>
+                {services.map(({ key }) => (
+                  <option key={key} value={t(key)}>{t(key)}</option>
                 ))}
               </select>
             </Field>
 
             <div className="grid sm:grid-cols-2 gap-5">
-              <Field label={t("date")} error={errors.date?.message}>
+              <Field label={t("date")} htmlFor="appt-date" error={errors.date?.message}>
                 <input
-                  {...register("date", { required: "Please select a date" })}
+                  id="appt-date"
+                  {...register("date", { required: t("errorDateRequired") })}
                   type="date"
                   min={new Date().toISOString().split("T")[0]}
                   className={inputClass(!!errors.date)}
                 />
               </Field>
 
-              <Field label={t("time")} error={errors.time?.message}>
+              <Field label={t("time")} htmlFor="appt-time" error={errors.time?.message}>
                 <select
-                  {...register("time", { required: "Please select a time" })}
+                  id="appt-time"
+                  {...register("time", { required: t("errorTimeRequired") })}
                   className={inputClass(!!errors.time)}
                 >
-                  <option value="">— Select time —</option>
+                  <option value="">{t("timePlaceholder")}</option>
                   {TIME_SLOTS.map((slot) => (
                     <option key={slot} value={slot}>{slot}</option>
                   ))}
@@ -188,8 +194,9 @@ export default function AppointmentForm() {
               </Field>
             </div>
 
-            <Field label={t("notes")}>
+            <Field label={t("notes")} htmlFor="appt-notes">
               <textarea
+                id="appt-notes"
                 {...register("notes")}
                 rows={3}
                 placeholder={t("notesPlaceholder")}
@@ -202,7 +209,7 @@ export default function AppointmentForm() {
               disabled={status === "loading"}
               className="w-full py-3.5 rounded-full bg-brand-600 text-white font-semibold text-base hover:bg-brand-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-sm"
             >
-              {status === "loading" ? "Submitting…" : t("submit")}
+              {status === "loading" ? t("submitting") : t("submit")}
             </button>
           </form>
         </div>
@@ -218,17 +225,16 @@ function inputClass(hasError: boolean) {
 }
 
 function Field({
-  label,
-  error,
-  children,
+  label, htmlFor, error, children,
 }: {
   label: string;
+  htmlFor: string;
   error?: string;
   children: React.ReactNode;
 }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-neutral-700 mb-1.5">{label}</label>
+      <label htmlFor={htmlFor} className="block text-sm font-medium text-neutral-700 mb-1.5">{label}</label>
       {children}
       {error && (
         <p role="alert" className="text-xs text-red-500 mt-1">{error}</p>

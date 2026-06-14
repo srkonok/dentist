@@ -95,7 +95,7 @@ export default function ServicesPage() {
                   href="/appointment"
                   className="text-brand-600 text-sm font-semibold hover:text-brand-700 flex items-center gap-1 group-hover:gap-2 transition-all"
                 >
-                  Book Now
+                  {t("bookNow")}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                   </svg>
@@ -107,13 +107,13 @@ export default function ServicesPage() {
 
         {/* CTA */}
         <div className="mt-16 bg-gradient-to-br from-brand-600 to-brand-800 rounded-3xl p-10 text-center text-white">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-3">Ready to get started?</h2>
-          <p className="text-brand-100 mb-6">Book your appointment today at either of our Dhaka clinics.</p>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3">{t("ctaTitle")}</h2>
+          <p className="text-brand-100 mb-6">{t("ctaSubtitle")}</p>
           <Link
             href="/appointment"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-brand-700 font-bold hover:bg-brand-50 transition-colors shadow-lg"
           >
-            Book Appointment
+            {t("ctaBtn")}
           </Link>
         </div>
       </div>

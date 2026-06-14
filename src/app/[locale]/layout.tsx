@@ -1,42 +1,43 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import "../globals.css";
 
-export const metadata: Metadata = {
-  title: {
-    template: "%s | Dr. Atoshe Islam — Dental Surgeon",
-    default: "Dr. Atoshe Islam — Dental Surgeon, Dhaka",
-  },
-  description:
-    "Expert dental care by Dr. Atoshe Islam, BDS (DU), PGT Oral & Maxillofacial Surgery. Two clinics in Dhaka — Mirpur 14 & West Kafrul.",
-  metadataBase: new URL("https://dratosheislam.com"), // TODO: update with real domain
-  icons: {
-    icon: [
-      { url: "/favicon.ico",        sizes: "any" },
-      { url: "/favicon-16x16.png",  sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png",  sizes: "32x32", type: "image/png" },
-    ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-    other: [
-      { rel: "manifest", url: "/site.webmanifest" },
-    ],
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "Dr. Atoshe Islam Dental Practice",
-  },
-};
-
 type Props = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  const ogLocale = locale === "bn" ? "bn_BD" : "en_US";
+  return {
+    title: {
+      template: `%s | ${t("homeTitle").split("—")[1]?.trim() ?? "Dr. Atoshe Islam"}`,
+      default: t("homeTitle"),
+    },
+    description: t("homeDesc"),
+    metadataBase: new URL("https://dratosheislam.com"),
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    },
+    openGraph: {
+      type: "website",
+      locale: ogLocale,
+      siteName: t("homeTitle").split("—")[0]?.trim() ?? "Dr. Atoshe Islam Dental Practice",
+    },
+  };
+}
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
@@ -53,9 +54,15 @@ export default async function LocaleLayout({ children, params }: Props) {
         <meta name="msapplication-TileColor" content="#0d9488" />
       </head>
       <body className="min-h-screen flex flex-col">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-brand-600 focus:text-white focus:font-semibold focus:shadow-lg"
+        >
+          Skip to main content
+        </a>
         <NextIntlClientProvider messages={messages}>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">{children}</main>
           <Footer />
         </NextIntlClientProvider>
       </body>

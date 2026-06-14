@@ -1,10 +1,10 @@
 export const DOCTOR = {
-  name: "Dr. Atoshe Islam",
-  nameBn: "ডাঃ আতশে ইসলাম",
+  name: "Dr. Atoshi Islam",
+  nameBn: "ডাঃ অতশী ইসলাম",
   credentials: "BDS (DU); PGT (Oral & Maxillofacial Surgery)",
   bmdcReg: "16100",
-  phone: "TODO: ADD NUMBER",
-  email: "TODO: ADD EMAIL",
+  phone: "+8801735470488",
+  email: "dr.atoshe@gmail.com",
   facebookUrl: "https://www.facebook.com/profile.php?id=61573408361425",
   facebookPage: "HD Popular Dental Care",
   consultationHours: "10:00 AM – 3:00 PM", // TODO: confirm if hours apply to both chambers

@@ -64,7 +64,7 @@ export default function ContactPage() {
                         <svg className="w-full h-full" aria-hidden="true"><defs><pattern id="cdots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="white"/></pattern></defs><rect width="100%" height="100%" fill="url(#cdots)"/></svg>
                       </div>
                       <Image
-                        src="/images/hd-popular-logo.webp"
+                        src="/images/hd-popular-logo.svg"
                         alt="HD Popular Dental Care"
                         width={100}
                         height={100}
@@ -102,16 +102,28 @@ export default function ContactPage() {
             {/* Contact details */}
             <div className="bg-white rounded-2xl shadow-sm border border-neutral-100 p-6 space-y-4">
               <ContactRow icon={<ClockIcon />} label={t("hours")} value={t("hoursValue")} />
-              <ContactRow
-                icon={<PhoneIcon />}
-                label={t("phone")}
-                value={<span className="text-yellow-600 font-medium text-sm">TODO: Add number</span>}
-              />
-              <ContactRow
-                icon={<MailIcon />}
-                label={t("email")}
-                value={<span className="text-yellow-600 font-medium text-sm">TODO: Add email</span>}
-              />
+              {DOCTOR.phone && !DOCTOR.phone.startsWith("TODO") && (
+                <ContactRow
+                  icon={<PhoneIcon />}
+                  label={t("phone")}
+                  value={
+                    <a href={`tel:${DOCTOR.phone}`} className="text-brand-600 hover:underline text-sm">
+                      {DOCTOR.phone}
+                    </a>
+                  }
+                />
+              )}
+              {DOCTOR.email && !DOCTOR.email.startsWith("TODO") && (
+                <ContactRow
+                  icon={<MailIcon />}
+                  label={t("email")}
+                  value={
+                    <a href={`mailto:${DOCTOR.email}`} className="text-brand-600 hover:underline text-sm">
+                      {DOCTOR.email}
+                    </a>
+                  }
+                />
+              )}
               <ContactRow
                 icon={<FacebookIcon />}
                 label={t("facebook")}
@@ -154,18 +166,6 @@ function ContactRow({
         <div className="text-neutral-800 text-sm font-medium">{value}</div>
       </div>
     </div>
-  );
-}
-
-function MapPlaceholderSvg() {
-  return (
-    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect width="56" height="56" rx="12" fill="#e2e8f0" />
-      <path d="M28 12c-6.6 0-12 5.4-12 12 0 9 12 20 12 20S40 33 40 24c0-6.6-5.4-12-12-12z" fill="#94a3b8" />
-      <circle cx="28" cy="24" r="4" fill="white" />
-      <rect x="8" y="42" width="40" height="3" rx="1.5" fill="#cbd5e1" />
-      <rect x="4" y="48" width="48" height="3" rx="1.5" fill="#e2e8f0" />
-    </svg>
   );
 }
 

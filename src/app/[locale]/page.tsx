@@ -4,6 +4,7 @@ import HeroSection from "@/components/sections/HeroSection";
 import WhyUsSection from "@/components/sections/WhyUsSection";
 import ServicesPreview from "@/components/sections/ServicesPreview";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import CTABanner from "@/components/sections/CTABanner";
 import { DOCTOR, CHAMBERS, SITE_URL } from "@/lib/constants";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -31,13 +32,12 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "Dentist",
     name: DOCTOR.name,
-    description:
-      "Expert dental care by Dr. Atoshe Islam, BDS (DU), PGT Oral & Maxillofacial Surgery.",
+    description: DOCTOR.credentials,
     url: SITE_URL,
     telephone: DOCTOR.phone,
+    email: DOCTOR.email,
     sameAs: [DOCTOR.facebookUrl],
     medicalSpecialty: ["Dentistry", "Oral and Maxillofacial Surgery"],
-    openingHours: "Mo-Su 10:00-15:00", // TODO: confirm exact days
     location: CHAMBERS.map((c) => ({
       "@type": "MedicalClinic",
       name: c.nameEn,
@@ -48,6 +48,7 @@ export default function HomePage() {
         addressCountry: "BD",
       },
       geo: { "@type": "GeoCoordinates", latitude: c.lat, longitude: c.lng },
+      ...("mapsUrl" in c && c.mapsUrl ? { hasMap: c.mapsUrl } : {}),
     })),
   };
 
@@ -61,6 +62,7 @@ export default function HomePage() {
       <ServicesPreview />
       <WhyUsSection />
       <TestimonialsSection />
+      <CTABanner />
     </>
   );
 }

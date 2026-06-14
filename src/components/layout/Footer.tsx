@@ -1,10 +1,13 @@
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { DOCTOR, CHAMBERS } from "@/lib/constants";
 
 export default function Footer() {
   const t = useTranslations("footer");
+  const nav = useTranslations("nav");
+  const locale = useLocale();
+  const isBn = locale === "bn";
   const year = new Date().getFullYear();
 
   return (
@@ -23,7 +26,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <Image
-                src="/images/hd-popular-logo.webp"
+                src="/images/hd-popular-logo.svg"
                 alt="HD Popular Dental Care logo"
                 width={48}
                 height={48}
@@ -41,20 +44,13 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold text-sm mb-4">{t("quickLinks")}</h3>
             <ul className="space-y-2 text-sm" role="list">
-              {[
-                { href: "/", label: "Home" },
-                { href: "/about", label: "About" },
-                { href: "/services", label: "Services" },
-                { href: "/appointment", label: "Book Appointment" },
-                { href: "/blog", label: "Dental Tips" },
-                { href: "/contact", label: "Contact" },
-              ].map(({ href, label }) => (
-                <li key={href}>
+              {(["home", "about", "services", "appointment", "blog", "contact"] as const).map((key) => (
+                <li key={key}>
                   <Link
-                    href={href}
+                    href={key === "home" ? "/" : `/${key}`}
                     className="text-neutral-400 hover:text-brand-400 transition-colors"
                   >
-                    {label}
+                    {nav(key)}
                   </Link>
                 </li>
               ))}
@@ -67,8 +63,12 @@ export default function Footer() {
             <ul className="space-y-4 text-sm" role="list">
               {CHAMBERS.map((chamber) => (
                 <li key={chamber.id}>
-                  <p className="text-brand-400 font-medium mb-0.5">{chamber.nameEn}</p>
-                  <p className="text-neutral-400 leading-snug">{chamber.addressEn}</p>
+                  <p className="text-brand-400 font-medium mb-0.5">
+                    {isBn ? chamber.nameBn : chamber.nameEn}
+                  </p>
+                  <p className="text-neutral-400 leading-snug">
+                    {isBn ? chamber.addressBn : chamber.addressEn}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -89,13 +89,17 @@ export default function Footer() {
             </a>
             <div className="mt-6 space-y-2 text-sm">
               <p className="text-neutral-400">
-                <span className="text-neutral-300 font-medium">Hours:</span>{" "}
+                <span className="text-neutral-300 font-medium">{t("hours")}:</span>{" "}
                 {DOCTOR.consultationHours}
               </p>
-              <p className="text-neutral-400">
-                <span className="text-neutral-300 font-medium">Phone:</span>{" "}
-                <span className="text-yellow-400 text-xs">TODO: Add number</span>
-              </p>
+              {DOCTOR.phone && (
+                <p className="text-neutral-400">
+                  <span className="text-neutral-300 font-medium">{t("phone")}:</span>{" "}
+                  <a href={`tel:${DOCTOR.phone}`} className="hover:text-brand-400 transition-colors">
+                    {DOCTOR.phone}
+                  </a>
+                </p>
+              )}
             </div>
           </div>
         </div>
