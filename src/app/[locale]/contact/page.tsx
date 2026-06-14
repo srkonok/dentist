@@ -1,0 +1,173 @@
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
+import { DOCTOR, CHAMBERS, SITE_URL } from "@/lib/constants";
+import ContactForm from "./ContactForm";
+
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return {
+    title: t("contactTitle"),
+    alternates: { canonical: `${SITE_URL}/${locale}/contact` },
+  };
+}
+
+export default function ContactPage() {
+  const t = useTranslations("contact");
+
+  return (
+    <div className="pt-16">
+      {/* Banner */}
+      <div className="bg-gradient-to-br from-brand-800 to-brand-900 py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">
+            {t("title")}
+          </h1>
+          <p className="text-brand-200 text-lg">{t("subtitle")}</p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid lg:grid-cols-2 gap-10">
+
+          {/* Contact info */}
+          <div className="space-y-8">
+            {/* Chambers */}
+            {CHAMBERS.map((chamber, i) => {
+              const nameKey = i === 0 ? "chamber1" : "chamber2";
+              const addrKey = i === 0 ? "chamber1Address" : "chamber2Address";
+              return (
+                <div key={chamber.id} className="bg-white rounded-2xl shadow-sm border border-neutral-100 overflow-hidden">
+                  {/* Map placeholder */}
+                  <div className="h-48 bg-gradient-to-br from-neutral-100 to-neutral-200 flex flex-col items-center justify-center gap-2">
+                    <MapPlaceholderSvg />
+                    <p className="text-xs text-neutral-400 font-medium">{t("mapTodo")}</p>
+                  </div>
+                  <div className="p-5">
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0 mt-0.5">
+                        <LocationIcon />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-neutral-900">{t(nameKey as "chamber1" | "chamber2")}</p>
+                        <p className="text-neutral-500 text-sm mt-0.5">{t(addrKey as "chamber1Address" | "chamber2Address")}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Contact details */}
+            <div className="bg-white rounded-2xl shadow-sm border border-neutral-100 p-6 space-y-4">
+              <ContactRow icon={<ClockIcon />} label={t("hours")} value={t("hoursValue")} />
+              <ContactRow
+                icon={<PhoneIcon />}
+                label={t("phone")}
+                value={<span className="text-yellow-600 font-medium text-sm">TODO: Add number</span>}
+              />
+              <ContactRow
+                icon={<MailIcon />}
+                label={t("email")}
+                value={<span className="text-yellow-600 font-medium text-sm">TODO: Add email</span>}
+              />
+              <ContactRow
+                icon={<FacebookIcon />}
+                label={t("facebook")}
+                value={
+                  <a
+                    href={DOCTOR.facebookUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-600 hover:underline text-sm"
+                  >
+                    {t("facebookPage")}
+                  </a>
+                }
+              />
+            </div>
+          </div>
+
+          {/* Contact form */}
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ContactRow({
+  icon, label, value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: React.ReactNode;
+}) {
+  return (
+    <div className="flex items-start gap-3">
+      <div className="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
+        {icon}
+      </div>
+      <div>
+        <p className="text-xs text-neutral-400 font-medium mb-0.5">{label}</p>
+        <div className="text-neutral-800 text-sm font-medium">{value}</div>
+      </div>
+    </div>
+  );
+}
+
+function MapPlaceholderSvg() {
+  return (
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="56" height="56" rx="12" fill="#e2e8f0" />
+      <path d="M28 12c-6.6 0-12 5.4-12 12 0 9 12 20 12 20S40 33 40 24c0-6.6-5.4-12-12-12z" fill="#94a3b8" />
+      <circle cx="28" cy="24" r="4" fill="white" />
+      <rect x="8" y="42" width="40" height="3" rx="1.5" fill="#cbd5e1" />
+      <rect x="4" y="48" width="48" height="3" rx="1.5" fill="#e2e8f0" />
+    </svg>
+  );
+}
+
+function LocationIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+    </svg>
+  );
+}
+
+function PhoneIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.71 3.41 2 2 0 0 1 3.68 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6.16 6.16l1.02-1.02a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+
+function MailIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline points="22,6 12,13 2,6" />
+    </svg>
+  );
+}
+
+function FacebookIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
