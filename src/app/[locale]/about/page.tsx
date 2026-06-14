@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { DOCTOR, SITE_URL } from "@/lib/constants";
 
@@ -38,18 +39,23 @@ export default function AboutPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
 
-          {/* Photo placeholder */}
+          {/* Doctor photo */}
           <div className="sticky top-24">
-            <div
-              className="aspect-[3/4] max-w-sm mx-auto rounded-3xl bg-gradient-to-br from-brand-100 to-brand-200 flex flex-col items-center justify-center shadow-xl border-4 border-white"
-              role="img"
-              aria-label={t("photoAlt")}
-            >
-              <DoctorPlaceholderSvg />
-              <p className="text-xs text-brand-500 mt-4 text-center px-6">
-                {/* TODO: Replace with actual doctor photo */}
-                {t("photoTodo")}
-              </p>
+            <div className="relative max-w-sm mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[600/760]">
+              <Image
+                src="/images/dr-atoshe.webp"
+                alt={t("photoAlt")}
+                fill
+                className="object-cover object-top"
+                priority
+                sizes="(max-width: 768px) 100vw, 384px"
+              />
+              {/* Gradient overlay at bottom for text legibility */}
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-900/70 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 text-center">
+                <p className="text-white font-bold text-sm drop-shadow">{DOCTOR.name}</p>
+                <p className="text-brand-200 text-xs">BMDC Reg. {DOCTOR.bmdcReg}</p>
+              </div>
             </div>
 
             {/* BMDC badge card */}

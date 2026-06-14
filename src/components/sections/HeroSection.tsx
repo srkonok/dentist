@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { DOCTOR } from "@/lib/constants";
@@ -76,20 +77,23 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Doctor illustration / photo placeholder */}
+          {/* Doctor photo */}
           <div className="flex justify-center lg:justify-end animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <div className="relative">
-              {/* Decorative ring */}
+              {/* Decorative rings */}
               <div className="absolute inset-0 rounded-full border-2 border-brand-400/30 scale-110" />
               <div className="absolute inset-0 rounded-full border border-brand-400/15 scale-125" />
 
-              {/* Photo placeholder */}
-              <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-gradient-to-br from-brand-700 to-brand-900 border-4 border-brand-500/40 shadow-2xl flex items-center justify-center">
-                <ToothIllustration />
-                <p className="absolute bottom-4 text-[10px] text-brand-300 font-medium text-center px-4">
-                  {/* TODO: Replace with doctor photo */}
-                  TODO: Add doctor photo
-                </p>
+              {/* Doctor photo — circular crop shows face + shoulders */}
+              <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-brand-500/40 shadow-2xl bg-brand-900">
+                <Image
+                  src="/images/dr-atoshe.webp"
+                  alt={`${DOCTOR.name} — Dental Surgeon`}
+                  fill
+                  className="object-cover object-top"
+                  priority
+                  sizes="(max-width: 640px) 288px, (max-width: 1024px) 320px, 384px"
+                />
               </div>
 
               {/* Floating card: BMDC */}
