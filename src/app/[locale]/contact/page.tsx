@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { DOCTOR, CHAMBERS, SITE_URL } from "@/lib/constants";
 import ContactForm from "./ContactForm";
 
@@ -57,9 +58,19 @@ export default function ContactPage() {
                       />
                     </div>
                   ) : (
-                    <div className="h-48 bg-gradient-to-br from-neutral-100 to-neutral-200 flex flex-col items-center justify-center gap-2">
-                      <MapPlaceholderSvg />
-                      <p className="text-xs text-neutral-400 font-medium">{t("mapTodo")}</p>
+                    /* HD Popular chamber — show clinic logo + address banner */
+                    <div className="h-48 bg-gradient-to-br from-blue-900 to-indigo-900 flex flex-col items-center justify-center gap-3 relative overflow-hidden">
+                      <div className="absolute inset-0 opacity-10">
+                        <svg className="w-full h-full" aria-hidden="true"><defs><pattern id="cdots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="white"/></pattern></defs><rect width="100%" height="100%" fill="url(#cdots)"/></svg>
+                      </div>
+                      <Image
+                        src="/images/hd-popular-logo.webp"
+                        alt="HD Popular Dental Care"
+                        width={100}
+                        height={100}
+                        className="relative z-10 drop-shadow-xl"
+                      />
+                      <p className="relative z-10 text-white font-bold text-sm tracking-wide drop-shadow">HD Popular Dental Care</p>
                     </div>
                   )}
                   <div className="p-5">
