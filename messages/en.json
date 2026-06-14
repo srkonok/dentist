@@ -109,7 +109,7 @@
     "email": "Email Address",
     "emailPlaceholder": "your@email.com",
     "chamber": "Select Chamber",
-    "chamberMirpur": "Mirpur Dental Clinic — Mirpur 14",
+    "chamberMirpur": "Mirpur Dental Care — Mirpur 14",
     "chamberKafrul": "HD Popular Dental Care — West Kafrul",
     "service": "Preferred Service",
     "servicePlaceholder": "Select a service",
@@ -132,7 +132,7 @@
   "contact": {
     "title": "Contact Us",
     "subtitle": "We are here to help — reach out anytime",
-    "chamber1": "Mirpur Dental Clinic",
+    "chamber1": "Mirpur Dental Care",
     "chamber1Address": "1st Floor, Navy Market, Mirpur 14, Dhaka-1206",
     "chamber1AddressTodo": "TODO: Confirm floor number (source says both 1st and 2nd floor)",
     "chamber2": "HD Popular Dental Care",
