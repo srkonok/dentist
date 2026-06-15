@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import { SITE_URL } from "@/lib/constants";
 import AppointmentForm from "./AppointmentForm";
 
@@ -14,18 +15,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function AppointmentPage({ params }: Props) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "appointment" });
+export default function AppointmentPage() {
+  const t = useTranslations("appointment");
   return (
     <div className="pt-16">
       {/* Banner */}
       <div className="bg-gradient-to-br from-brand-800 to-brand-900 py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">
-            {t("title")}
+            {t("pageTitle")}
           </h1>
-          <p className="text-brand-200 text-lg">{t("hours")}</p>
+          <p className="text-brand-200 text-lg">{t("pageSubtitle")}</p>
         </div>
       </div>
       <AppointmentForm />

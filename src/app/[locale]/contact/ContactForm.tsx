@@ -23,7 +23,7 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) throw new Error("Server error");
       setStatus("success");
       reset();
     } catch {
@@ -57,9 +57,9 @@ export default function ContactForm() {
           <label htmlFor="contact-name" className="block text-sm font-medium text-neutral-700 mb-1.5">{t("formName")}</label>
           <input
             id="contact-name"
-            {...register("name", { required: t("errorNameRequired") })}
+            {...register("name", { required: "Name is required" })}
             className={inputCls(!!errors.name)}
-            placeholder={t("formNamePlaceholder")}
+            placeholder="Your full name"
             autoComplete="name"
           />
           {errors.name && <p role="alert" className="text-xs text-red-500 mt-1">{errors.name.message}</p>}
@@ -70,12 +70,12 @@ export default function ContactForm() {
           <input
             id="contact-email"
             {...register("email", {
-              required: t("errorEmailRequired"),
-              pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: t("errorEmailInvalid") },
+              required: "Email is required",
+              pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Invalid email" },
             })}
             type="email"
             className={inputCls(!!errors.email)}
-            placeholder={t("formEmailPlaceholder")}
+            placeholder="your@email.com"
             autoComplete="email"
           />
           {errors.email && <p role="alert" className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
@@ -85,10 +85,10 @@ export default function ContactForm() {
           <label htmlFor="contact-message" className="block text-sm font-medium text-neutral-700 mb-1.5">{t("formMessage")}</label>
           <textarea
             id="contact-message"
-            {...register("message", { required: t("errorMessageRequired") })}
+            {...register("message", { required: "Message is required" })}
             rows={5}
             className={`${inputCls(!!errors.message)} resize-none`}
-            placeholder={t("formMessagePlaceholder")}
+            placeholder="How can we help you?"
           />
           {errors.message && <p role="alert" className="text-xs text-red-500 mt-1">{errors.message.message}</p>}
         </div>
@@ -98,7 +98,7 @@ export default function ContactForm() {
           disabled={status === "loading"}
           className="w-full py-3.5 rounded-full bg-brand-600 text-white font-semibold hover:bg-brand-700 disabled:opacity-60 transition-colors shadow-sm"
         >
-          {status === "loading" ? t("formSending") : t("formSubmit")}
+          {status === "loading" ? "Sending…" : t("formSubmit")}
         </button>
       </form>
     </div>

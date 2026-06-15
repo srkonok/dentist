@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState, isValidElement, cloneElement, Children } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { CHAMBERS } from "@/lib/constants";
 
 interface FormData {
   name: string;
@@ -15,14 +16,27 @@ interface FormData {
   notes: string;
 }
 
+const SERVICE_KEYS = [
+  "implants",
+  "wisdom",
+  "rootCanal",
+  "cosmetic",
+  "oralSurgery",
+  "checkup",
+] as const;
+
 const TIME_SLOTS = [
   "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
   "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM",
   "2:00 PM", "2:30 PM",
+  "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM",
+  "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM",
+  "9:00 PM", "9:30 PM",
 ];
 
 export default function AppointmentForm() {
   const t = useTranslations("appointment");
+  const ts = useTranslations("services");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const {
@@ -48,39 +62,29 @@ export default function AppointmentForm() {
     }
   }
 
-  const services = [
-    { key: "serviceImplants" },
-    { key: "serviceWisdom" },
-    { key: "serviceRootCanal" },
-    { key: "serviceCosmetic" },
-    { key: "serviceOralSurgery" },
-    { key: "serviceCheckup" },
-  ] as const;
-
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="grid lg:grid-cols-3 gap-10">
 
         {/* Sidebar info */}
         <aside className="lg:col-span-1 space-y-5">
-          <InfoCard
-            icon={<ClockIcon />}
-            title={t("hoursLabel")}
-            value={t("hours")}
-          />
-          <InfoCard
-            icon={<LocationIcon />}
-            title={t("chamberMirpur")}
-            value="Navy Market, Mirpur 14, Dhaka-1206"
-          />
-          <InfoCard
-            icon={<LocationIcon />}
-            title={t("chamberKafrul")}
-            value="202/5, West Kafrul, Agargaon, Dhaka-1207"
-          />
+          {CHAMBERS.map((chamber) => (
+            <InfoCard
+              key={chamber.id}
+              icon={<ClockIcon />}
+              title={t(chamber.id === "mirpur" ? "chamberMirpur" : "chamberKafrul")}
+              value={chamber.hours}
+              sub={chamber.addressEn}
+            />
+          ))}
+          <p className="text-xs text-neutral-500 px-1 flex items-center gap-1.5">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
+            Closed on Fridays
+          </p>
           <div className="bg-brand-50 border border-brand-100 rounded-2xl p-5">
             <p className="text-sm text-neutral-600">
-              <strong className="text-brand-700">Note:</strong> {t("sidebarNote")}
+              <strong className="text-brand-700">{t("noteLabel")}</strong>{" "}
+              {t("noteText")}
             </p>
           </div>
         </aside>
@@ -105,22 +109,20 @@ export default function AppointmentForm() {
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
             <div className="grid sm:grid-cols-2 gap-5">
-              <Field label={t("name")} htmlFor="appt-name" error={errors.name?.message}>
+              <Field label={t("name")} error={errors.name?.message}>
                 <input
-                  id="appt-name"
-                  {...register("name", { required: t("errorNameRequired") })}
+                  {...register("name", { required: "Full name is required" })}
                   placeholder={t("namePlaceholder")}
                   className={inputClass(!!errors.name)}
                   autoComplete="name"
                 />
               </Field>
 
-              <Field label={t("phone")} htmlFor="appt-phone" error={errors.phone?.message}>
+              <Field label={t("phone")} error={errors.phone?.message}>
                 <input
-                  id="appt-phone"
                   {...register("phone", {
-                    required: t("errorPhoneRequired"),
-                    pattern: { value: /^(\+?880)?01[3-9]\d{8}$/, message: t("errorPhoneInvalid") },
+                    required: "Phone number is required",
+                    pattern: { value: /^01[3-9]\d{8}$/, message: "Enter a valid BD phone number" },
                   })}
                   placeholder={t("phonePlaceholder")}
                   className={inputClass(!!errors.phone)}
@@ -130,12 +132,11 @@ export default function AppointmentForm() {
               </Field>
             </div>
 
-            <Field label={t("email")} htmlFor="appt-email" error={errors.email?.message}>
+            <Field label={t("email")} error={errors.email?.message}>
               <input
-                id="appt-email"
                 {...register("email", {
-                  required: t("errorEmailRequired"),
-                  pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: t("errorEmailInvalid") },
+                  required: "Email is required",
+                  pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email" },
                 })}
                 placeholder={t("emailPlaceholder")}
                 className={inputClass(!!errors.email)}
@@ -144,49 +145,49 @@ export default function AppointmentForm() {
               />
             </Field>
 
-            <Field label={t("chamber")} htmlFor="appt-chamber" error={errors.chamber?.message}>
+            <Field label={t("chamber")} error={errors.chamber?.message}>
               <select
-                id="appt-chamber"
-                {...register("chamber", { required: t("errorChamberRequired") })}
+                {...register("chamber", { required: "Please select a chamber" })}
                 className={inputClass(!!errors.chamber)}
               >
-                <option value="">{t("chamberPlaceholder")}</option>
+                <option value="">— Select chamber —</option>
                 <option value="mirpur">{t("chamberMirpur")}</option>
                 <option value="kafrul">{t("chamberKafrul")}</option>
               </select>
             </Field>
 
-            <Field label={t("service")} htmlFor="appt-service" error={errors.service?.message}>
+            <Field label={t("service")} error={errors.service?.message}>
               <select
-                id="appt-service"
-                {...register("service", { required: t("errorServiceRequired") })}
+                {...register("service", { required: "Please select a service" })}
                 className={inputClass(!!errors.service)}
               >
                 <option value="">{t("servicePlaceholder")}</option>
-                {services.map(({ key }) => (
-                  <option key={key} value={t(key)}>{t(key)}</option>
+                {SERVICE_KEYS.map((key) => (
+                  <option key={key} value={key}>{ts(`${key}.name`)}</option>
                 ))}
               </select>
             </Field>
 
             <div className="grid sm:grid-cols-2 gap-5">
-              <Field label={t("date")} htmlFor="appt-date" error={errors.date?.message}>
+              <Field label={t("date")} error={errors.date?.message}>
                 <input
-                  id="appt-date"
-                  {...register("date", { required: t("errorDateRequired") })}
+                  {...register("date", {
+                    required: "Please select a date",
+                    validate: (v) =>
+                      new Date(v).getUTCDay() !== 5 || "Closed on Fridays — please choose another day",
+                  })}
                   type="date"
                   min={new Date().toISOString().split("T")[0]}
                   className={inputClass(!!errors.date)}
                 />
               </Field>
 
-              <Field label={t("time")} htmlFor="appt-time" error={errors.time?.message}>
+              <Field label={t("time")} error={errors.time?.message}>
                 <select
-                  id="appt-time"
-                  {...register("time", { required: t("errorTimeRequired") })}
+                  {...register("time", { required: "Please select a time" })}
                   className={inputClass(!!errors.time)}
                 >
-                  <option value="">{t("timePlaceholder")}</option>
+                  <option value="">— Select time —</option>
                   {TIME_SLOTS.map((slot) => (
                     <option key={slot} value={slot}>{slot}</option>
                   ))}
@@ -194,9 +195,8 @@ export default function AppointmentForm() {
               </Field>
             </div>
 
-            <Field label={t("notes")} htmlFor="appt-notes">
+            <Field label={t("notes")}>
               <textarea
-                id="appt-notes"
                 {...register("notes")}
                 rows={3}
                 placeholder={t("notesPlaceholder")}
@@ -209,7 +209,7 @@ export default function AppointmentForm() {
               disabled={status === "loading"}
               className="w-full py-3.5 rounded-full bg-brand-600 text-white font-semibold text-base hover:bg-brand-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-sm"
             >
-              {status === "loading" ? t("submitting") : t("submit")}
+              {status === "loading" ? "Submitting…" : t("submit")}
             </button>
           </form>
         </div>
@@ -225,17 +225,20 @@ function inputClass(hasError: boolean) {
 }
 
 function Field({
-  label, htmlFor, error, children,
+  label,
+  error,
+  children,
 }: {
   label: string;
-  htmlFor: string;
   error?: string;
   children: React.ReactNode;
 }) {
+  const id = useId();
+  const child = Children.only(children);
   return (
     <div>
-      <label htmlFor={htmlFor} className="block text-sm font-medium text-neutral-700 mb-1.5">{label}</label>
-      {children}
+      <label htmlFor={id} className="block text-sm font-medium text-neutral-700 mb-1.5">{label}</label>
+      {isValidElement<{ id?: string }>(child) ? cloneElement(child, { id }) : child}
       {error && (
         <p role="alert" className="text-xs text-red-500 mt-1">{error}</p>
       )}
@@ -243,7 +246,7 @@ function Field({
   );
 }
 
-function InfoCard({ icon, title, value }: { icon: React.ReactNode; title: string; value: string }) {
+function InfoCard({ icon, title, value, sub }: { icon: React.ReactNode; title: string; value: string; sub?: string }) {
   return (
     <div className="bg-white rounded-2xl border border-neutral-100 p-5 flex items-start gap-3 shadow-sm">
       <div className="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
@@ -252,6 +255,7 @@ function InfoCard({ icon, title, value }: { icon: React.ReactNode; title: string
       <div>
         <p className="text-xs text-neutral-400 font-medium mb-0.5">{title}</p>
         <p className="text-sm text-neutral-800 font-medium leading-snug">{value}</p>
+        {sub && <p className="text-xs text-neutral-500 mt-1 leading-snug">{sub}</p>}
       </div>
     </div>
   );

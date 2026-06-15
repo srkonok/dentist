@@ -64,7 +64,7 @@ export default function ContactPage() {
                         <svg className="w-full h-full" aria-hidden="true"><defs><pattern id="cdots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="white"/></pattern></defs><rect width="100%" height="100%" fill="url(#cdots)"/></svg>
                       </div>
                       <Image
-                        src="/images/hd-popular-logo.svg"
+                        src="/images/hd-popular-logo.webp"
                         alt="HD Popular Dental Care"
                         width={100}
                         height={100}
@@ -81,6 +81,7 @@ export default function ContactPage() {
                       <div className="flex-1">
                         <p className="font-semibold text-neutral-900">{t(nameKey as "chamber1" | "chamber2")}</p>
                         <p className="text-neutral-500 text-sm mt-0.5">{t(addrKey as "chamber1Address" | "chamber2Address")}</p>
+                        <p className="text-brand-600 text-xs font-medium mt-1">{chamber.hours}</p>
                         {"mapsUrl" in chamber && chamber.mapsUrl && (
                           <a
                             href={chamber.mapsUrl as string}
@@ -102,23 +103,23 @@ export default function ContactPage() {
             {/* Contact details */}
             <div className="bg-white rounded-2xl shadow-sm border border-neutral-100 p-6 space-y-4">
               <ContactRow icon={<ClockIcon />} label={t("hours")} value={t("hoursValue")} />
-              {DOCTOR.phone && !DOCTOR.phone.startsWith("TODO") && (
+              {!DOCTOR.phone.startsWith("TODO") && (
                 <ContactRow
                   icon={<PhoneIcon />}
                   label={t("phone")}
                   value={
-                    <a href={`tel:${DOCTOR.phone}`} className="text-brand-600 hover:underline text-sm">
+                    <a href={`tel:${DOCTOR.phone}`} className="hover:underline text-sm">
                       {DOCTOR.phone}
                     </a>
                   }
                 />
               )}
-              {DOCTOR.email && !DOCTOR.email.startsWith("TODO") && (
+              {!DOCTOR.email.startsWith("TODO") && (
                 <ContactRow
                   icon={<MailIcon />}
                   label={t("email")}
                   value={
-                    <a href={`mailto:${DOCTOR.email}`} className="text-brand-600 hover:underline text-sm">
+                    <a href={`mailto:${DOCTOR.email}`} className="hover:underline text-sm">
                       {DOCTOR.email}
                     </a>
                   }

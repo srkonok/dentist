@@ -1,13 +1,10 @@
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { DOCTOR, CHAMBERS } from "@/lib/constants";
+import { DOCTOR } from "@/lib/constants";
 
 export default function Footer() {
   const t = useTranslations("footer");
-  const nav = useTranslations("nav");
-  const locale = useLocale();
-  const isBn = locale === "bn";
   const year = new Date().getFullYear();
 
   return (
@@ -26,13 +23,13 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <Image
-                src="/images/hd-popular-logo.svg"
+                src="/images/hd-popular-logo.webp"
                 alt="HD Popular Dental Care logo"
                 width={48}
                 height={48}
                 className="rounded-full bg-white p-0.5"
               />
-              <span className="font-bold text-white text-sm leading-tight">{DOCTOR.name}</span>
+              <span className="font-bold text-white text-sm leading-tight">{t("doctorName")}</span>
             </div>
             <p className="text-sm text-neutral-400 leading-relaxed mb-3">
               {t("tagline")}
@@ -44,13 +41,20 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold text-sm mb-4">{t("quickLinks")}</h3>
             <ul className="space-y-2 text-sm" role="list">
-              {(["home", "about", "services", "appointment", "blog", "contact"] as const).map((key) => (
-                <li key={key}>
+              {[
+                { href: "/", labelKey: "linkHome" },
+                { href: "/about", labelKey: "linkAbout" },
+                { href: "/services", labelKey: "linkServices" },
+                { href: "/appointment", labelKey: "linkAppointment" },
+                { href: "/blog", labelKey: "linkBlog" },
+                { href: "/contact", labelKey: "linkContact" },
+              ].map(({ href, labelKey }) => (
+                <li key={href}>
                   <Link
-                    href={key === "home" ? "/" : `/${key}`}
+                    href={href}
                     className="text-neutral-400 hover:text-brand-400 transition-colors"
                   >
-                    {nav(key)}
+                    {t(labelKey as "linkHome" | "linkAbout" | "linkServices" | "linkAppointment" | "linkBlog" | "linkContact")}
                   </Link>
                 </li>
               ))}
@@ -61,16 +65,14 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold text-sm mb-4">{t("chambers")}</h3>
             <ul className="space-y-4 text-sm" role="list">
-              {CHAMBERS.map((chamber) => (
-                <li key={chamber.id}>
-                  <p className="text-brand-400 font-medium mb-0.5">
-                    {isBn ? chamber.nameBn : chamber.nameEn}
-                  </p>
-                  <p className="text-neutral-400 leading-snug">
-                    {isBn ? chamber.addressBn : chamber.addressEn}
-                  </p>
-                </li>
-              ))}
+              <li>
+                <p className="text-brand-400 font-medium mb-0.5">{t("chamber1Name")}</p>
+                <p className="text-neutral-400 leading-snug">{t("chamber1Address")}</p>
+              </li>
+              <li>
+                <p className="text-brand-400 font-medium mb-0.5">{t("chamber2Name")}</p>
+                <p className="text-neutral-400 leading-snug">{t("chamber2Address")}</p>
+              </li>
             </ul>
           </div>
 
@@ -89,12 +91,12 @@ export default function Footer() {
             </a>
             <div className="mt-6 space-y-2 text-sm">
               <p className="text-neutral-400">
-                <span className="text-neutral-300 font-medium">{t("hours")}:</span>{" "}
+                <span className="text-neutral-300 font-medium">Hours:</span>{" "}
                 {DOCTOR.consultationHours}
               </p>
-              {DOCTOR.phone && (
+              {!DOCTOR.phone.startsWith("TODO") && (
                 <p className="text-neutral-400">
-                  <span className="text-neutral-300 font-medium">{t("phone")}:</span>{" "}
+                  <span className="text-neutral-300 font-medium">Phone:</span>{" "}
                   <a href={`tel:${DOCTOR.phone}`} className="hover:text-brand-400 transition-colors">
                     {DOCTOR.phone}
                   </a>

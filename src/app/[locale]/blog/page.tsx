@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { getAllPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/constants";
@@ -40,11 +41,23 @@ export default async function BlogListPage({ params }: Props) {
             {posts.map((post) => (
               <article
                 key={post.slug}
-                className="bg-white rounded-2xl border border-neutral-100 shadow-sm card-hover overflow-hidden"
+                className="group bg-white rounded-2xl border border-neutral-100 shadow-sm card-hover overflow-hidden"
               >
-                {/* Placeholder image header */}
-                <div className="h-40 bg-gradient-to-br from-brand-100 to-brand-200 flex items-center justify-center">
-                  <BlogIllustration />
+                {/* Cover image */}
+                <div className="relative h-44 overflow-hidden">
+                  {post.coverImage ? (
+                    <Image
+                      src={post.coverImage}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <div className="h-full bg-gradient-to-br from-brand-100 to-brand-200 flex items-center justify-center">
+                      <BlogIllustration />
+                    </div>
+                  )}
                 </div>
                 <div className="p-5">
                   {post.tags.slice(0, 2).map((tag) => (

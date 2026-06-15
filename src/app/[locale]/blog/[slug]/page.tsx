@@ -119,9 +119,9 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1 text-brand-600 text-sm font-medium hover:text-brand-700 mb-8"
+          className="inline-flex items-center gap-1 text-brand-600 text-sm font-medium hover:text-brand-700 mb-8 block"
         >
-          ← {t("backToBlog")}
+          {t("backToBlog")}
         </Link>
 
         <article>
@@ -135,7 +135,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
           <div>
             <p className="font-semibold text-neutral-900">{post.author}</p>
-            <p className="text-sm text-neutral-500">{t("authorBio")}</p>
+            <p className="text-sm text-neutral-500">BDS (DU) · PGT Oral & Maxillofacial Surgery, Dhaka Dental College</p>
           </div>
         </div>
 
@@ -144,7 +144,7 @@ export default async function BlogPostPage({ params }: Props) {
             href="/appointment"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-brand-600 text-white font-semibold hover:bg-brand-700 transition-colors shadow"
           >
-            {t("bookAppointment")}
+            {t("bookCta")}
           </Link>
         </div>
       </div>

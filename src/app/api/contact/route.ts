@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { transporter, NOTIFY_EMAIL, FROM_ADDRESS } from "@/lib/mailer";
 
 interface ContactPayload {
   name: string;
@@ -28,29 +27,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error }, { status: 422 });
   }
 
-  try {
-    await transporter.sendMail({
-      from: FROM_ADDRESS,
-      to: NOTIFY_EMAIL,
-      replyTo: body.email,
-      subject: `New Contact Message — ${body.name}`,
-      html: `
-        <h2 style="color:#0d9488">New Contact Message</h2>
-        <table cellpadding="6" style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
-          <tr><td><strong>Name</strong></td><td>${body.name}</td></tr>
-          <tr><td><strong>Email</strong></td><td>${body.email}</td></tr>
-          <tr><td><strong>Message</strong></td><td style="white-space:pre-wrap">${body.message}</td></tr>
-        </table>
-        <p style="font-size:12px;color:#999;margin-top:16px">Reply directly to this email to respond to ${body.name}.</p>
-      `,
-    });
-  } catch (err) {
-    console.error("[CONTACT EMAIL ERROR]", err);
-    return NextResponse.json(
-      { error: "Failed to send message. Please try again." },
-      { status: 500 }
-    );
-  }
+  // TODO: Connect to email service (e.g. Resend, SendGrid) or store in database.
+  console.log("[CONTACT MESSAGE]", {
+    timestamp: new Date().toISOString(),
+    ...body,
+  });
 
   return NextResponse.json(
     { message: "Message received. We will get back to you soon." },

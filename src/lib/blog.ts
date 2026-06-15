@@ -12,6 +12,7 @@ export interface PostMeta {
   date: string;
   author: string;
   tags: string[];
+  coverImage?: string;
 }
 
 export interface Post extends PostMeta {
@@ -37,6 +38,7 @@ export function getAllPosts(locale: string): PostMeta[] {
         date: data.date ?? "",
         author: data.author ?? "Dr. Atoshi Islam",
         tags: data.tags ?? [],
+        coverImage: data.coverImage,
       };
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -58,6 +60,7 @@ export function getPost(slug: string, locale: string): Post | null {
         date: data.date ?? "",
         author: data.author ?? "Dr. Atoshi Islam",
         tags: data.tags ?? [],
+        coverImage: data.coverImage,
         content,
       };
     }
