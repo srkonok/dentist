@@ -4,39 +4,27 @@ import { Link } from "@/i18n/navigation";
 const SERVICES = [
   {
     key: "implants",
-    gradient: "from-teal-500 to-cyan-600",
     icon: <ImplantIcon />,
-    accent: "#14b8a6",
   },
   {
     key: "wisdom",
-    gradient: "from-sky-500 to-blue-600",
     icon: <ToothIcon />,
-    accent: "#0ea5e9",
   },
   {
     key: "rootCanal",
-    gradient: "from-violet-500 to-purple-600",
     icon: <RootCanalIcon />,
-    accent: "#8b5cf6",
   },
   {
     key: "cosmetic",
-    gradient: "from-amber-400 to-orange-500",
     icon: <CosmeticIcon />,
-    accent: "#f59e0b",
   },
   {
     key: "oralSurgery",
-    gradient: "from-rose-500 to-pink-600",
     icon: <SurgeryIcon />,
-    accent: "#f43f5e",
   },
   {
     key: "checkup",
-    gradient: "from-emerald-500 to-teal-600",
     icon: <CheckupIcon />,
-    accent: "#10b981",
   },
 ] as const;
 
@@ -60,15 +48,18 @@ export default function ServicesPreview() {
 
         {/* Service grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {SERVICES.map(({ key, gradient, icon, accent }, idx) => (
+          {SERVICES.map(({ key, icon }, idx) => (
             <div
               key={key}
               className="group relative bg-white rounded-2xl border border-neutral-100 overflow-hidden card-hover"
               style={{ boxShadow: "0 1px 12px rgba(0,0,0,0.05)" }}
             >
-              {/* Gradient icon header */}
-              <div className={`bg-gradient-to-br ${gradient} px-6 py-5 flex items-center justify-between`}>
-                <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              {/* Header — single brand gradient */}
+              <div
+                className="px-6 py-5 flex items-center justify-between"
+                style={{ background: "linear-gradient(135deg, #0b3d35 0%, #0d766e 60%, #0e7490 100%)" }}
+              >
+                <div className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center">
                   {icon}
                 </div>
                 <span className="text-4xl font-black text-white/10 select-none leading-none">
@@ -86,8 +77,7 @@ export default function ServicesPreview() {
                 </p>
                 <Link
                   href="/appointment"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold transition-all group-hover:gap-2.5"
-                  style={{ color: accent }}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-600 hover:text-brand-700 transition-all group-hover:gap-2.5"
                 >
                   {t("bookNow")}
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -98,10 +88,7 @@ export default function ServicesPreview() {
               </div>
 
               {/* Bottom accent bar on hover */}
-              <div
-                className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
-                style={{ background: `linear-gradient(to right, ${accent}, transparent)` }}
-              />
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-r from-brand-500 to-transparent" />
             </div>
           ))}
         </div>

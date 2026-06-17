@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { DOCTOR, CHAMBERS, SITE_URL } from "@/lib/constants";
+import PageHeroBanner from "@/components/ui/PageHeroBanner";
 import ContactForm from "./ContactForm";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -21,15 +22,7 @@ export default function ContactPage() {
 
   return (
     <div className="pt-16">
-      {/* Banner */}
-      <div className="bg-gradient-to-br from-brand-800 to-brand-900 py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">
-            {t("title")}
-          </h1>
-          <p className="text-brand-200 text-lg">{t("subtitle")}</p>
-        </div>
-      </div>
+      <PageHeroBanner title={t("title")} subtitle={t("subtitle")} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-2 gap-10">
@@ -44,7 +37,7 @@ export default function ContactPage() {
                 <div key={chamber.id} className="bg-white rounded-2xl shadow-sm border border-neutral-100 overflow-hidden">
                   {/* Map — real embed if available, otherwise placeholder */}
                   {"mapEmbedUrl" in chamber && chamber.mapEmbedUrl ? (
-                    <div className="h-52 relative">
+                    <div className="h-40 sm:h-52 relative">
                       <iframe
                         src={chamber.mapEmbedUrl}
                         width="100%"
@@ -59,18 +52,15 @@ export default function ContactPage() {
                     </div>
                   ) : (
                     /* HD Popular chamber — show clinic logo + address banner */
-                    <div className="h-48 bg-gradient-to-br from-blue-900 to-indigo-900 flex flex-col items-center justify-center gap-3 relative overflow-hidden">
-                      <div className="absolute inset-0 opacity-10">
-                        <svg className="w-full h-full" aria-hidden="true"><defs><pattern id="cdots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="white"/></pattern></defs><rect width="100%" height="100%" fill="url(#cdots)"/></svg>
-                      </div>
+                    <div className="relative">
                       <Image
-                        src="/images/hd-popular-logo.webp"
-                        alt="HD Popular Dental Care"
-                        width={100}
-                        height={100}
-                        className="relative z-10 drop-shadow-xl"
+                        src="/visiting-card.png"
+                        alt={`${t(nameKey as "chamber1" | "chamber2")} — ${t("visitingCard")}`}
+                        width={600}
+                        height={300}
+                        className="w-full h-auto"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                       />
-                      <p className="relative z-10 text-white font-bold text-sm tracking-wide drop-shadow">HD Popular Dental Care</p>
                     </div>
                   )}
                   <div className="p-5">
@@ -90,7 +80,7 @@ export default function ContactPage() {
                             className="inline-flex items-center gap-1 text-xs text-brand-600 hover:text-brand-700 font-medium mt-2"
                           >
                             <ExternalLinkIcon />
-                            Open in Google Maps
+                            {t("openInMaps")}
                           </a>
                         )}
                       </div>

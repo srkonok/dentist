@@ -1,0 +1,57 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dr. Atoshe Islam">
+  <defs>
+    <linearGradient id="ring" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16a34a"/>
+      <stop offset="1" stop-color="#0d9488"/>
+    </linearGradient>
+    <linearGradient id="tooth" x1="206" y1="150" x2="306" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#dff2ee"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer ring -->
+  <circle cx="256" cy="256" r="248" fill="#ffffff"/>
+  <circle cx="256" cy="256" r="248" stroke="url(#ring)" stroke-width="14"/>
+  <circle cx="256" cy="256" r="216" stroke="#0d9488" stroke-width="2" opacity="0.35"/>
+
+  <!-- Top arc text: DR. ATOSHE ISLAM -->
+  <path id="topArc" d="M 92 256 A 164 164 0 0 1 420 256" fill="none"/>
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" letter-spacing="3" fill="#16332e">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">DR.&#160;ATOSHE&#160;ISLAM</textPath>
+  </text>
+
+  <!-- Bottom arc text: DENTAL SURGEON -->
+  <path id="botArc" d="M 104 268 A 152 152 0 0 0 408 268" fill="none"/>
+  <text font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" letter-spacing="6" fill="#0d9488">
+    <textPath href="#botArc" startOffset="50%" text-anchor="middle">DENTAL&#160;SURGEON</textPath>
+  </text>
+
+  <!-- Side dot separators -->
+  <circle cx="84" cy="256" r="6" fill="#16a34a"/>
+  <circle cx="428" cy="256" r="6" fill="#16a34a"/>
+
+  <!-- Central monogram AI on a tooth -->
+  <g>
+    <!-- Tooth silhouette -->
+    <path d="M256 168
+             c -28 0 -42 -13 -64 -13
+             c -25 0 -40 20 -40 50
+             c 0 33 12 64 22 92
+             c 7 18 13 36 24 36
+             c 13 0 15 -28 33 -28
+             c 18 0 20 28 33 28
+             c 11 0 17 -18 24 -36
+             c 10 -28 22 -59 22 -92
+             c 0 -30 -15 -50 -40 -50
+             c -22 0 -36 13 -64 13 z"
+          fill="url(#tooth)" stroke="#0d9488" stroke-width="5" stroke-linejoin="round"/>
+    <!-- Tooth shine -->
+    <path d="M204 196 c -11 7 -17 23 -16 42 c 1 11 5 11 7 2 c 3 -18 10 -33 18 -39 c 5 -4 -2 -8 -9 -5 z"
+          fill="#ffffff" opacity="0.65"/>
+
+    <!-- Monogram A I -->
+    <text x="253" y="294" font-family="Georgia, 'Times New Roman', serif" font-size="104" font-weight="700"
+          fill="#16a34a" text-anchor="middle" letter-spacing="-2">AI</text>
+  </g>
+</svg>

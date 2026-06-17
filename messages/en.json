@@ -16,10 +16,11 @@
     "description": "Dr. Atoshe Islam combines rigorous surgical training with a patient-first approach — ensuring every visit is thorough, transparent, and respectful of your time and comfort.",
     "cta": "Book an Appointment",
     "learnMore": "Learn More",
-    "trustBmdc": "BMDC Registered",
-    "trustSurgeon": "Oral Surgeon",
-    "trustClinics": "Clinics in Dhaka",
-    "openToday": "Open Today"
+    "trustBmdc": "BMDC Reg. #{reg}",
+    "trustDegree": "BDS · DU · Oral Surgeon",
+    "trustClinics": "2 Clinics · Dhaka",
+    "openToday": "Open Today",
+    "openHours": "10 AM – 3 PM"
   },
   "about": {
     "title": "About Dr. Atoshe Islam",
@@ -36,12 +37,15 @@
     "photoAlt": "Dr. Atoshe Islam — Dental Surgeon",
     "doctorName": "Dr. Atoshe Islam",
     "doctorCredentials": "BDS (DU) · PGT (Oral & Maxillofacial Surgery)",
-    "bookCta": "Schedule a Consultation"
+    "bookCta": "Schedule a Consultation",
+    "visitingCardLabel": "Official Practice Card"
   },
   "services": {
     "title": "Comprehensive Dental Services",
     "subtitle": "From preventive care to advanced oral surgery — all under one roof",
+    "pill": "Our Services",
     "bookNow": "Book Now",
+    "viewAll": "View All Services",
     "ctaTitle": "Not sure which treatment is right for you?",
     "ctaSubtitle": "Schedule a consultation and Dr. Islam will assess your needs and recommend the most appropriate course of treatment.",
     "ctaButton": "Book a Free Consultation",
@@ -73,6 +77,11 @@
   "whyUs": {
     "title": "Why Patients Choose Dr. Islam",
     "subtitle": "The qualities our patients mention most often",
+    "pill": "Why Choose Us",
+    "statBmdc": "Registered",
+    "statBds": "Degree · DU",
+    "statClinics": "Clinics · Dhaka",
+    "statSterilized": "Sterilized",
     "qualified": {
       "title": "Clear Communication",
       "desc": "Every diagnosis and treatment plan is explained in plain language before any procedure begins. You will always understand what is being done and why — and your consent is never assumed."
@@ -123,18 +132,32 @@
     "chamber": "Preferred Clinic",
     "chamberMirpur": "Mirpur Dental Care — Mirpur 14",
     "chamberKafrul": "HD Popular Dental Care — West Kafrul",
+    "chamberPlaceholder": "— Select clinic —",
     "service": "Reason for Visit",
     "servicePlaceholder": "Select a service",
     "date": "Preferred Date",
     "time": "Preferred Time",
+    "timePlaceholder": "— Select time —",
     "notes": "Additional Notes",
     "notesPlaceholder": "Please share any relevant information — dental anxiety, specific symptoms, or previous treatment history — to help us prepare for your visit.",
     "noteLabel": "Please note:",
     "noteText": "A member of our team will contact you by phone or WhatsApp to confirm your appointment slot. If you have any concerns, please include them in the notes field above.",
+    "closedFridays": "Closed on Fridays",
+    "closedFridaysError": "Closed on Fridays — please choose another day",
     "submit": "Submit Appointment Request",
+    "submitting": "Submitting…",
     "success": "Thank you — your appointment request has been received. A member of our team will contact you shortly to confirm your visit.",
     "error": "We were unable to process your request. Please try again or contact us directly via WhatsApp.",
-    "hours": "Mirpur: 10:00 AM–3:00 PM · HD Popular: 5:00–10:00 PM"
+    "hours": "Mirpur: 10:00 AM–3:00 PM · HD Popular: 5:00–10:00 PM",
+    "errName": "Full name is required",
+    "errPhone": "Phone number is required",
+    "errPhoneFormat": "Enter a valid BD phone number (e.g. 01XXXXXXXXX)",
+    "errEmail": "Email address is required",
+    "errEmailFormat": "Enter a valid email address",
+    "errChamber": "Please select a clinic",
+    "errService": "Please select a service",
+    "errDate": "Please select a date",
+    "errTime": "Please select a time"
   },
   "blog": {
     "title": "Dental Health Advice",
@@ -147,6 +170,8 @@
   "contact": {
     "title": "Contact Us",
     "subtitle": "Reach us through any of the following channels",
+    "openInMaps": "Open in Google Maps",
+    "visitingCard": "Practice Card",
     "chamber1": "Mirpur Dental Care",
     "chamber1Address": "1st Floor, Navy Market, Mirpur 14, Dhaka-1206",
     "chamber2": "HD Popular Dental Care",
@@ -159,13 +184,23 @@
     "facebookPage": "HD Popular Dental Care",
     "formTitle": "Send a Message",
     "formName": "Full Name",
+    "formNamePlaceholder": "Your full name",
     "formEmail": "Email Address",
+    "formEmailPlaceholder": "your@email.com",
     "formMessage": "Your Message",
+    "formMessagePlaceholder": "How can we help you?",
     "formSubmit": "Send Message",
+    "formSending": "Sending…",
     "formSuccess": "Thank you for your message. We will respond as soon as possible.",
-    "formError": "We were unable to send your message. Please try again or reach us via Facebook."
+    "formError": "We were unable to send your message. Please try again or reach us via Facebook.",
+    "formErrName": "Name is required",
+    "formErrEmail": "Email address is required",
+    "formErrEmailFormat": "Enter a valid email address",
+    "formErrMessage": "Message is required"
   },
   "footer": {
+    "hoursLabel": "Hours",
+    "phoneLabel": "Phone",
     "doctorName": "Dr. Atoshe Islam",
     "chamber1Name": "Mirpur Dental Care",
     "chamber1Address": "1st Floor, Navy Market, Mirpur 14, Dhaka-1206",
@@ -183,6 +218,14 @@
     "follow": "Find Us Online",
     "copyright": "© {year} Dr. Atoshe Islam. All rights reserved.",
     "bmdc": "BMDC Reg. No: 16100"
+  },
+  "cta": {
+    "pill": "Booking Open",
+    "title": "Ready for a Healthier Smile?",
+    "subtitle": "Book your appointment at either of our Dhaka clinics. Expert dental care with a gentle touch.",
+    "bookBtn": "Book Appointment",
+    "contactBtn": "Contact Us",
+    "trustLine": "BMDC Reg. #{reg} · Two locations in Dhaka · Open daily 10 AM – 3 PM"
   },
   "meta": {
     "homeTitle": "Dr. Atoshe Islam — Dental Surgeon, Dhaka",

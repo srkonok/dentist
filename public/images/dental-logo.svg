@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <!-- Outer ring gradient -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <!-- Circle fill gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b3d35"/>
+      <stop offset="60%" stop-color="#0d766e"/>
+      <stop offset="100%" stop-color="#0e5a7a"/>
+    </linearGradient>
+    <!-- Tooth gradient -->
+    <linearGradient id="toothGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e0f7f5"/>
+    </linearGradient>
+    <!-- Cross gradient -->
+    <linearGradient id="crossGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <!-- Glow filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Soft shadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0d9488" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Outer decorative ring -->
+  <circle cx="100" cy="100" r="96" stroke="url(#ringGrad)" stroke-width="2.5" stroke-dasharray="6 4" opacity="0.5"/>
+
+  <!-- Main circle background -->
+  <circle cx="100" cy="100" r="84" fill="url(#bgGrad)" filter="url(#shadow)"/>
+
+  <!-- Inner subtle ring -->
+  <circle cx="100" cy="100" r="79" stroke="rgba(45,212,191,0.18)" stroke-width="1.5"/>
+
+  <!-- ── TOOTH SHAPE ── -->
+  <!-- Tooth body: two roots + crown -->
+  <g filter="url(#glow)">
+    <!-- Crown (upper wide part of tooth) -->
+    <path
+      d="M72 88
+         C72 72 78 60 86 57
+         C90 55.5 93 57 95 60
+         C96.5 62.5 97.5 64 100 64
+         C102.5 64 103.5 62.5 105 60
+         C107 57 110 55.5 114 57
+         C122 60 128 72 128 88
+         C128 96 125 102 121 106
+         C118 109 115 114 114 120
+         L112 133
+         C111.5 136 109.5 138 107 137.5
+         C104.5 137 103.5 134.5 103 132
+         L101 122
+         C100.5 120 99.5 120 99 122
+         L97 132
+         C96.5 134.5 95.5 137 93 137.5
+         C90.5 138 88.5 136 88 133
+         L86 120
+         C85 114 82 109 79 106
+         C75 102 72 96 72 88 Z"
+      fill="url(#toothGrad)"
+      stroke="rgba(255,255,255,0.4)"
+      stroke-width="1"
+    />
+
+    <!-- Tooth surface groove lines (realistic detail) -->
+    <path d="M93 73 Q96 79 100 78 Q104 79 107 73" stroke="rgba(14,148,136,0.25)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M88 82 Q94 88 100 86 Q106 88 112 82" stroke="rgba(14,148,136,0.2)" stroke-width="1" stroke-linecap="round" fill="none"/>
+
+    <!-- Subtle shine on crown -->
+    <ellipse cx="91" cy="75" rx="5" ry="7" fill="white" opacity="0.22" transform="rotate(-15 91 75)"/>
+  </g>
+
+  <!-- ── MEDICAL CROSS ── -->
+  <!-- Positioned top-right of tooth, small and clean -->
+  <g opacity="0.95">
+    <!-- Cross background circle -->
+    <circle cx="122" cy="66" r="13" fill="rgba(13,148,136,0.25)" stroke="rgba(45,212,191,0.4)" stroke-width="1"/>
+    <!-- Vertical bar -->
+    <rect x="119.5" y="58.5" width="5" height="15" rx="2.5" fill="url(#crossGrad)"/>
+    <!-- Horizontal bar -->
+    <rect x="114.5" y="63.5" width="15" height="5" rx="2.5" fill="url(#crossGrad)"/>
+  </g>
+
+  <!-- ── SMALL SPARKLE DOTS ── -->
+  <circle cx="74" cy="66" r="2.5" fill="#2dd4bf" opacity="0.7"/>
+  <circle cx="68" cy="78" r="1.5" fill="#38bdf8" opacity="0.5"/>
+  <circle cx="132" cy="90" r="2" fill="#2dd4bf" opacity="0.55"/>
+</svg>

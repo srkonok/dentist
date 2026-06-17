@@ -93,7 +93,7 @@ export default function WhyUsSection() {
                 style={{ boxShadow: "0 1px 12px rgba(0,0,0,0.05)" }}
               >
                 {/* Large background number */}
-                <span className="absolute top-3 right-4 text-6xl font-black text-neutral-50 select-none leading-none pointer-events-none">
+                <span className="absolute top-3 right-4 text-6xl font-black select-none leading-none pointer-events-none" style={{ color: "rgba(13,148,136,0.07)" }}>
                   {num}
                 </span>
 

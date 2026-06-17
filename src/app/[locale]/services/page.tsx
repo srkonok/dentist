@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { SITE_URL } from "@/lib/constants";
+import PageHeroBanner from "@/components/ui/PageHeroBanner";
 import {
   ImplantIcon,
   WisdomToothIcon,
@@ -37,15 +38,7 @@ export default function ServicesPage() {
 
   return (
     <div className="pt-16">
-      {/* Banner */}
-      <div className="bg-gradient-to-br from-brand-800 to-brand-900 py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">
-            {t("title")}
-          </h1>
-          <p className="text-brand-200 text-lg">{t("subtitle")}</p>
-        </div>
-      </div>
+      <PageHeroBanner title={t("title")} subtitle={t("subtitle")} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

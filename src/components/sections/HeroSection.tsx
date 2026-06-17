@@ -80,26 +80,25 @@ export default function HeroSection() {
           </div>
 
           {/* Doctor photo */}
-          <div className="flex justify-center lg:justify-end animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <div className="flex flex-col items-center lg:items-end animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <div className="relative">
-              {/* Decorative rings — hidden on mobile to avoid horizontal overflow */}
+              {/* Decorative rings */}
               <div className="hidden sm:block absolute inset-0 rounded-full border-2 border-brand-400/30 scale-110" />
               <div className="hidden sm:block absolute inset-0 rounded-full border border-brand-400/15 scale-125" />
 
-              {/* Doctor photo — circular crop shows face + shoulders */}
-              <div
-                className="w-56 h-56 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-brand-500/40 shadow-2xl"
-                style={{
-                  backgroundImage: "url('/images/dr-atoshe.webp')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "50% 35%",
-                  backgroundRepeat: "no-repeat",
-                }}
-                role="img"
-                aria-label={`${DOCTOR.name} — Dental Surgeon`}
-              />
+              {/* Doctor photo — proper Next.js Image */}
+              <div className="w-56 h-56 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-brand-500/40 shadow-2xl relative">
+                <Image
+                  src="/images/dr-atoshe.webp"
+                  alt={`${DOCTOR.name} — Dental Surgeon`}
+                  fill
+                  className="object-cover object-[50%_25%]"
+                  priority
+                  sizes="(max-width: 640px) 224px, (max-width: 1024px) 288px, 384px"
+                />
+              </div>
 
-              {/* Floating card: BMDC — hidden on mobile */}
+              {/* Floating card: BMDC — desktop only */}
               <div className="hidden sm:flex absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 items-center gap-2.5">
                 <div className="w-9 h-9 rounded-full bg-brand-100 flex items-center justify-center">
                   <ShieldCheckIcon className="text-brand-600" />
@@ -110,11 +109,26 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* Floating card: Hours — hidden on mobile */}
+              {/* Floating card: Hours — desktop only */}
               <div className="hidden sm:block absolute -top-2 -right-4 bg-white rounded-2xl shadow-xl px-4 py-3">
-                <p className="text-[10px] text-neutral-500 font-medium">{t("openToday")}</p>
-                <p className="text-xs font-bold text-neutral-800">{DOCTOR.consultationHours}</p>
+                <div className="flex items-center gap-1.5 mb-0.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <p className="text-[10px] text-neutral-500 font-medium">{t("openToday")}</p>
+                </div>
+                <p className="text-xs font-bold text-neutral-800">10 AM – 3 PM</p>
               </div>
+            </div>
+
+            {/* Mobile trust pills — shown only on small screens below photo */}
+            <div className="flex sm:hidden flex-wrap justify-center gap-2 mt-6">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-teal-200 border border-teal-400/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0" />
+                BMDC #{DOCTOR.bmdcReg}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-sky-200 border border-sky-400/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-400 flex-shrink-0" />
+                {t("openToday")} · 10 AM–3 PM
+              </span>
             </div>
           </div>
         </div>

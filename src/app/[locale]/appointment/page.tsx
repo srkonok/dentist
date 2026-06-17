@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { SITE_URL } from "@/lib/constants";
+import PageHeroBanner from "@/components/ui/PageHeroBanner";
 import AppointmentForm from "./AppointmentForm";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -19,15 +20,7 @@ export default function AppointmentPage() {
   const t = useTranslations("appointment");
   return (
     <div className="pt-16">
-      {/* Banner */}
-      <div className="bg-gradient-to-br from-brand-800 to-brand-900 py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">
-            {t("pageTitle")}
-          </h1>
-          <p className="text-brand-200 text-lg">{t("pageSubtitle")}</p>
-        </div>
-      </div>
+      <PageHeroBanner title={t("pageTitle")} subtitle={t("pageSubtitle")} />
       <AppointmentForm />
     </div>
   );

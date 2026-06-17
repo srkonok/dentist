@@ -118,7 +118,7 @@ button, a, [role="button"] {
 }
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px 0 rgba(14, 116, 144, 0.14);
+  box-shadow: var(--shadow-card), 0 12px 32px 0 rgba(14, 116, 144, 0.14);
 }
 
 /* Gradient text */

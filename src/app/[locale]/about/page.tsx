@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { DOCTOR, SITE_URL } from "@/lib/constants";
+import PageHeroBanner from "@/components/ui/PageHeroBanner";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -26,15 +27,7 @@ export default function AboutPage() {
 
   return (
     <div className="pt-16">
-      {/* Hero banner */}
-      <div className="bg-gradient-to-br from-brand-800 to-brand-900 py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">
-            {t("title")}
-          </h1>
-          <p className="text-brand-200 text-lg">{t("subtitle")}</p>
-        </div>
-      </div>
+      <PageHeroBanner title={t("title")} subtitle={t("subtitle")} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -69,6 +62,23 @@ export default function AboutPage() {
                 </p>
                 <p className="text-2xl font-bold text-brand-700">{t("bmdcNumber")}</p>
                 <p className="text-xs text-neutral-400">Bangladesh Medical & Dental Council</p>
+              </div>
+            </div>
+
+            {/* Official visiting card */}
+            <div className="mt-5 mx-auto max-w-sm">
+              <p className="text-xs text-neutral-400 font-medium uppercase tracking-widest text-center mb-2.5">
+                {t("visitingCardLabel")}
+              </p>
+              <div className="rounded-2xl overflow-hidden shadow-lg border border-neutral-100">
+                <Image
+                  src="/visiting-card.png"
+                  alt={`${DOCTOR.name} — Official Practice Card`}
+                  width={600}
+                  height={300}
+                  className="w-full h-auto"
+                  sizes="(max-width: 640px) 100vw, 384px"
+                />
               </div>
             </div>
           </div>
